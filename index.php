@@ -27,11 +27,9 @@ renderHeader("Công ty Lương Trường Hiệu");
 ?>
 <div class="container">
     <?php if (isset($_SESSION['account_id'])): ?>
-        <h2>Chào mừng, <?php echo htmlspecialchars($_SESSION['account_id']); ?>!</h2>
-        <p><a href="logout.php">Đăng xuất</a></p>
+        <h2>Chào mừng, <?php echo $username ?>!</h2>
     <?php else: ?>
         <h2>Chào mừng đến trang web của chúng tôi!</h2>
-        <p><a href="login.php">Đăng nhập</a> | <a href="register.php">Đăng ký</a></p>
     <?php endif; ?>
     </div>
     <?php include ($_SERVER['DOCUMENT_ROOT'] . '/includes/views/layout/footer.php'); ?>

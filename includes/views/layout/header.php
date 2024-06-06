@@ -48,7 +48,11 @@
                         <ul class="top-menu">
                             <li>
                                 <ul>
+                                <?php if (isset($_SESSION['account_id'])): ?>
+                                    <li><a href="/logout.php">Đăng xuất</a></li>
+                                    <?php else: ?>
                                     <li><a href="#signin-modal" data-toggle="modal">Đăng nhập / Đăng ký</a></li>
+                                    <?php endif; ?>
                                 </ul>
                             </li>
                         </ul><!-- End .top-menu -->
