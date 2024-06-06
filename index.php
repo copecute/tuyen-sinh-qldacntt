@@ -21,14 +21,11 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //            amen đà phật copecute 
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-session_start();
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/functions.php');
+
+renderHeader("Công ty Lương Trường Hiệu");
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Trang chủ</title>
-</head>
-<body>
+<div class="container">
     <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
         <h2>Chào mừng, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h2>
         <p><a href="logout.php">Đăng xuất</a></p>
@@ -36,5 +33,5 @@ session_start();
         <h2>Chào mừng đến trang web của chúng tôi!</h2>
         <p><a href="login.php">Đăng nhập</a> | <a href="register.php">Đăng ký</a></p>
     <?php endif; ?>
-</body>
-</html>
+    </div>
+    <?php include ($_SERVER['DOCUMENT_ROOT'] . '/includes/views/layout/footer.php'); ?>
