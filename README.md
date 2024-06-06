@@ -18,6 +18,7 @@
 - Kế hoạch triển khai dự án được thiết kế chi tiết, bao gồm các giai đoạn: phân tích yêu cầu, thiết kế giao diện người dùng, phát triển tính năng, kiểm thử toàn diện và triển khai cuối cùng. Mỗi giai đoạn sẽ được quản lý chặt chẽ để đảm bảo tiến độ và chất lượng.<br/>
 <h3 id="cong-cu">4. CÔNG NGHỆ SỬ DỤNG</h3><br/>
 - PHP: Ngôn ngữ lập trình chính để phát triển các chức năng của trang web.<br/>
+- MySql: Hệ quản trị cơ sở dữ liệu lưu trữ thông tin cho website.<br/>
 - JavaScript: Tăng cường khả năng tương tác và trải nghiệm người dùng.<br/>
 - CSS: Tạo giao diện người dùng thân thiện và bắt mắt.<br/>
 - GitHub: Quản lý mã nguồn và hợp tác nhóm hiệu quả.<br/>
