@@ -12,4 +12,5 @@ function renderHeader($title = "Your Website Title", $description = "Your websit
 function renderFooter() {
     include ($_SERVER['DOCUMENT_ROOT'] . '/includes/views/layout/footer.php');
 }
+
 ?>

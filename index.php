@@ -26,8 +26,8 @@ require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/functions.php');
 renderHeader("Công ty Lương Trường Hiệu");
 ?>
 <div class="container">
-    <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
-        <h2>Chào mừng, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h2>
+    <?php if (isset($_SESSION['account_id'])): ?>
+        <h2>Chào mừng, <?php echo htmlspecialchars($_SESSION['account_id']); ?>!</h2>
         <p><a href="logout.php">Đăng xuất</a></p>
     <?php else: ?>
         <h2>Chào mừng đến trang web của chúng tôi!</h2>
