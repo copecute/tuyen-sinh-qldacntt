@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         try {
-            $sql = "INSERT INTO users (username, password) VALUES (:username, :password)";
+            $sql = "INSERT INTO accounts (username, password) VALUES (:username, :password)";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':username', $username);
             $stmt->bindParam(':password', $password_hashed);
@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif ($action === 'login') {
         // Xử lý đăng nhập
         try {
-            $sql = "SELECT id, username, password FROM users WHERE username = :username";
+            $sql = "SELECT account_id, username, password FROM accounts WHERE username = :username";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':username', $username);
             $stmt->execute();
@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
                 if (password_verify($password, $row['password'])) {
                     $_SESSION['loggedin'] = true;
-                    $_SESSION['username'] = $row['username'];
+                    $_SESSION['account_id'] = $row['account_id'];
                     header("Location: ../index.php");
                     exit;
                 }

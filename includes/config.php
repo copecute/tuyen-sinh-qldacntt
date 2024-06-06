@@ -33,7 +33,6 @@ try {
 } catch(PDOException $e) {
     die("Kết nối thất bại: " . $e->getMessage());
 }
-<<<<<<< HEAD
 
 // Hàm tạo token CSRF
 function generate_csrf_token() {
@@ -51,6 +50,4 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
     generate_csrf_token(); // Gọi hàm tạo token CSRF khi khởi động
 }
-=======
->>>>>>> c48b8e629d3c7b2d767d9730e283d6c5408ea0e9
 ?>
