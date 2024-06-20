@@ -22,20 +22,22 @@
 //            amen đà phật copecute 
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/functions.php');
+if(isset($_POST['id'])) {
+    $id = $_POST['id'];
+    // Lấy trạng thái hiện tại của ứng dụng
+    $stmt = $conn->prepare("SELECT status FROM admission_application WHERE id = :id");
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $currentStatus = $row['status'];
 
-renderHeader("Tuyển sinh");
+    // Chuyển đổi trạng thái
+    $newStatus = ($currentStatus == 1) ? 0 : 1;
+
+    // Cập nhật trạng thái mới vào CSDL
+    $stmt = $conn->prepare("UPDATE admission_application SET status = :status WHERE id = :id");
+    $stmt->bindParam(':id', $id);
+    $stmt->bindParam(':status', $newStatus);
+    $stmt->execute();
+}
 ?>
-<div class="container">
-<<<<<<< Updated upstream
-    <?php if (isset($_SESSION['account_id'])): ?>
-        <h2>Chào mừng, <?php echo $username ?>!</h2>
-=======
-    <?php if (checkLogin()): ?>
-        <h2>Chào mừng, <?php echo $user['username']; ?>!</h2>
-        <p><a href="logout.php">Đăng xuất</a></p>
->>>>>>> Stashed changes
-    <?php else: ?>
-        <h2>Chào mừng đến trang web của chúng tôi!</h2>
-    <?php endif; ?>
-</div>
-<?php renderFooter(); ?>

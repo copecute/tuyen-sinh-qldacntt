@@ -22,20 +22,10 @@
 //            amen đà phật copecute 
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/functions.php');
-
-renderHeader("Tuyển sinh");
+if(isset($_POST['id'])) {
+    $id = $_POST['id'];
+    $stmt = $conn->prepare("DELETE FROM admission_application WHERE id = :id");
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+}
 ?>
-<div class="container">
-<<<<<<< Updated upstream
-    <?php if (isset($_SESSION['account_id'])): ?>
-        <h2>Chào mừng, <?php echo $username ?>!</h2>
-=======
-    <?php if (checkLogin()): ?>
-        <h2>Chào mừng, <?php echo $user['username']; ?>!</h2>
-        <p><a href="logout.php">Đăng xuất</a></p>
->>>>>>> Stashed changes
-    <?php else: ?>
-        <h2>Chào mừng đến trang web của chúng tôi!</h2>
-    <?php endif; ?>
-</div>
-<?php renderFooter(); ?>

@@ -1,4 +1,5 @@
 </div>
+<<<<<<< Updated upstream
 </div>
 </main>
 <footer class="footer">
@@ -445,6 +446,11 @@
                 </div>
             </div>
         </div>
+=======
+<footer class="py-5 bg-dark">
+    <div class="container">
+        <p class="m-0 text-center text-white">Tuyển sinh &copy; 2024</p>
+>>>>>>> Stashed changes
     </div>
 </div>
 <!-- Plugins JS File -->
