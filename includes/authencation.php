@@ -65,7 +65,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($stmt->rowCount() > 0) {
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
                 if (password_verify($password, $row['password'])) {
-                    $_SESSION['loggedin'] = true;
                     $_SESSION['account_id'] = $row['account_id'];
                     header("Location: ../index.php");
                     exit;
