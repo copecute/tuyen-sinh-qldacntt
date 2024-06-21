@@ -1,124 +1,147 @@
+<?php
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/functions.php');
+?>
 <!DOCTYPE html>
 <html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản Lý Hồ Sơ Nhập Học</title>
+    <title>Quản lý Hồ Sơ</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Toast CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 </head>
 
 <body>
     <div class="container mt-5">
-        <h2 class="mb-4">Quản Lý Hồ Sơ Nhập Học</h2>
+        <h2 class="mb-4">Quản lý Hồ Sơ</h2>
         <div class="row mb-3">
-            <div class="col">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal" data-action="add">Thêm Hồ Sơ</button>
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="searchInput" placeholder="Tìm kiếm...">
             </div>
         </div>
-        <div id="application-table">
-            <!-- Bảng hiển thị dữ liệu sẽ được tải qua AJAX -->
+        <div id="applicationsTable">
+            <!-- Bảng danh sách hồ sơ sẽ được load bằng AJAX -->
         </div>
     </div>
 
-    <!-- Add/Edit Modal -->
-    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <!-- Nội dung form thêm/sửa sẽ được tải bằng AJAX -->
-            </div>
-        </div>
-    </div>
-
-    <!-- View Modal -->
-    <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+    <!-- View Application Modal -->
+    <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <!-- Nội dung chi tiết hồ sơ sẽ được tải bằng AJAX -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewModalLabel">Chi tiết hồ sơ</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div id="viewModalBody">
+                    <!-- Nội dung chi tiết hồ sơ sẽ được tải bằng AJAX -->
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Bootstrap JS và jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- Script AJAX để tải dữ liệu và thực hiện các hành động -->
-    <script>
-        $(document).ready(function () {
-            loadApplications();
+        <!-- Toast Container -->
+        <div class="toast-container position-fixed bottom-0 end-0 p-3"></div>
 
-            // Hàm AJAX để load danh sách applications
-            function loadApplications() {
-                $.ajax({
-                    url: "fetch_applications.php",
-                    type: "POST",
-                    success: function (data) {
-                        $("#application-table").html(data);
-                    }
+        <!-- Bootstrap JS và jQuery -->
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <!-- Toast JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+        <!-- Script AJAX để thực hiện tìm kiếm và phân trang -->
+        <script>
+            $(document).ready(function () {
+                // Load danh sách hồ sơ khi trang được load
+                loadApplications();
+
+                // Tìm kiếm hồ sơ
+                $('#searchInput').on('keyup', function () {
+                    loadApplications();
                 });
-            }
 
-            // Hiển thị modal thêm/sửa application
-            $('#addModal').on('show.bs.modal', function (e) {
-                var btn = $(e.relatedTarget);
-                var action = btn.data('action'); // Kiểm tra biến action từ data-action của nút
-                var modal = $(this);
-                var id = btn.data('id'); // Lấy giá trị ID từ data-id của nút (chỉ khi sửa)
-                $.ajax({
-                    type: 'POST',
-                    url: 'application_form.php',
-                    data: { action: action, id: id }, // Truyền giá trị action và id qua AJAX
-                    success: function (response) {
-                        modal.find('.modal-content').html(response);
-                    }
+                // Xử lý khi click vào phân trang
+                $(document).on('click', '.pagination a.page-link', function (e) {
+                    e.preventDefault();
+                    var page = $(this).data('page');
+                    loadApplications(page);
                 });
-            });
 
-            // Hiển thị modal xem chi tiết application
-            $('#viewModal').on('show.bs.modal', function (e) {
-                var btn = $(e.relatedTarget);
-                var id = btn.data('id'); // Lấy giá trị ID từ data-id của nút
-                var modal = $(this);
-                $.ajax({
-                    type: 'POST',
-                    url: 'view_application.php',
-                    data: { id: id }, // Truyền giá trị id qua AJAX
-                    success: function (response) {
-                        modal.find('.modal-content').html(response);
-                    }
-                });
-            });
-
-            // Hàm AJAX để xoá application
-            $(document).on('click', '.delete-btn', function () {
-                var id = $(this).data("id");
-                if (confirm("Bạn có chắc chắn muốn xóa hồ sơ này?")) {
+                // Hàm AJAX để load danh sách hồ sơ
+                function loadApplications(page) {
                     $.ajax({
-                        url: "delete_application.php",
-                        method: "POST",
-                        data: { id: id },
+                        url: "/admin/hoso/fetch_applications.php",
+                        type: "POST",
+                        data: {
+                            page: page || 1,
+                            search: $('#searchInput').val()
+                        },
                         success: function (data) {
-                            loadApplications();
+                            $('#applicationsTable').html(data); // Thay đổi nội dung của bảng
                         }
                     });
                 }
-            });
 
-            // Hàm AJAX để phê duyệt application
-            $(document).on('click', '.approve-btn', function () {
-                var id = $(this).data("id");
-                $.ajax({
-                    url: "approve_application.php",
-                    method: "POST",
-                    data: { id: id },
-                    success: function (data) {
-                        loadApplications();
+                // Xem chi tiết hồ sơ
+                $(document).on('click', '.view-btn', function () {
+                    var applicationId = $(this).data('id');
+                    $.ajax({
+                        url: "/admin/hoso/view_application.php",
+                        type: "POST",
+                        data: { id: applicationId },
+                        success: function (data) {
+                            $('#viewModalBody').html(data); // Thay đổi nội dung modal
+                            $('#viewModal').modal('show'); // Hiển thị modal
+                        }
+                    });
+                });
+
+                // Xóa hồ sơ
+                $(document).on('click', '.delete-btn', function () {
+                    var applicationId = $(this).data('id');
+                    if (confirm('Bạn có chắc chắn muốn xóa hồ sơ này không?')) {
+                        $.ajax({
+                            url: "/admin/hoso/delete_application.php",
+                            type: "POST",
+                            data: { id: applicationId },
+                            dataType: 'json', // Chỉ định dữ liệu trả về là JSON
+                            success: function (response) {
+                                if (response.status === 'success') {
+                                    loadApplications(); // Reload danh sách sau khi xóa thành công
+                                    showToast('success', response.message); // Hiển thị toast thông báo thành công
+                                } else {
+                                    showToast('error', response.message); // Hiển thị toast thông báo lỗi từ server
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                console.error('Lỗi khi xóa hồ sơ:', error); // Log lỗi vào console để kiểm tra
+                                showToast('error', 'Đã xảy ra lỗi khi xóa hồ sơ. Vui lòng thử lại.'); // Hiển thị toast thông báo lỗi
+                            }
+                        });
                     }
                 });
+
+
+                // Hàm hiển thị toast
+                function showToast(type, message) {
+                    toastr.options = {
+                        "closeButton": true,
+                        "progressBar": true,
+                        "timeOut": "3000",
+                    };
+                    if (type === 'success') {
+                        toastr.success(message);
+                    } else if (type === 'error') {
+                        toastr.error(message);
+                    }
+                }
             });
-        });
-    </script>
+        </script>
 </body>
 
 </html>

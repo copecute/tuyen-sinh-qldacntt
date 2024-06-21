@@ -26,6 +26,20 @@ if(isset($_POST['id'])) {
     $id = $_POST['id'];
     $stmt = $conn->prepare("DELETE FROM admission_application WHERE id = :id");
     $stmt->bindParam(':id', $id);
-    $stmt->execute();
+    $result = $stmt->execute();
+
+    if ($result) {
+        $response = array(
+            'status' => 'success',
+            'message' => 'Hồ sơ đã được xóa thành công !'
+        );
+        echo json_encode($response);
+    } else {
+        $response = array(
+            'status' => 'error',
+            'message' => 'Không thể xóa hồ sơ. Vui lòng thử lại sau.'
+        );
+        echo json_encode($response);
+    }
 }
 ?>
