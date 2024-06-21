@@ -56,7 +56,16 @@
                     <div class="card-body">
                         <h5 class="card-title">Thống kê</h5>
                         <p class="card-text">Thống kê báo cáo</p>
-                        <a href="/admin/lop" class="btn btn-primary">Xem</a>
+                        <a href="/admin/thongke.php" class="btn btn-primary">Xem</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Quản Lý năm tuyển sinh</h5>
+                        <p class="card-text">Thêm, sửa, xoá...</p>
+                        <a href="/admin/admissions-settings" class="btn btn-primary">Quản Lý</a>
                     </div>
                 </div>
             </div>
