@@ -13,14 +13,28 @@ $start_from = ($page - 1) * $records_per_page;
 // Lấy điều kiện tìm kiếm từ request POST
 $search = isset($_POST['search']) ? $_POST['search'] : '';
 
-// Query lấy danh sách hồ sơ với phân trang và điều kiện tìm kiếm
+// Lấy điều kiện lọc trạng thái từ request POST
+$filterStatus = isset($_POST['filterStatus']) ? $_POST['filterStatus'] : '';
+
+// Lấy điều kiện lọc chuyên ngành từ request POST
+$filterMajor = isset($_POST['filterMajor']) ? $_POST['filterMajor'] : '';
+
+// Query lấy danh sách hồ sơ với phân trang, điều kiện tìm kiếm và lọc trạng thái, chuyên ngành
 $query = "SELECT a.id, a.fullname, a.birthday, COALESCE(n.ten_nghanh, a.major) AS chuyen_nganh, a.status
           FROM admission_application a
           LEFT JOIN nghanh n ON a.major = n.id
-          WHERE a.fullname LIKE :search OR a.birthday LIKE :search OR COALESCE(n.ten_nghanh, a.major) LIKE :search
+          WHERE (a.fullname LIKE :search OR a.birthday LIKE :search OR COALESCE(n.ten_nghanh, a.major) LIKE :search)
+          AND (:filterStatus = '' OR a.status = :filterStatus)
+          AND (:filterMajor = '' OR a.major = :filterMajor)
           ORDER BY a.id DESC
           LIMIT $start_from, $records_per_page";
-$params = [':search' => '%' . $search . '%'];
+
+// Bind parameters
+$params = [
+    ':search' => '%' . $search . '%',
+    ':filterStatus' => $filterStatus,
+    ':filterMajor' => $filterMajor,
+];
 
 $stmt = $conn->prepare($query);
 $stmt->execute($params);
@@ -29,7 +43,9 @@ $applications = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Tính tổng số hồ sơ
 $countQuery = "SELECT COUNT(*) FROM admission_application
-               WHERE fullname LIKE :search OR birthday LIKE :search OR major LIKE :search";
+               WHERE (fullname LIKE :search OR birthday LIKE :search OR major LIKE :search)
+               AND (:filterStatus = '' OR status = :filterStatus)
+               AND (:filterMajor = '' OR major = :filterMajor)";
 $countStmt = $conn->prepare($countQuery);
 $countStmt->execute($params);
 $totalRecords = $countStmt->fetchColumn();
