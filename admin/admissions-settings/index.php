@@ -32,7 +32,8 @@ require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/functions.php');
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Năm học</th>
+                    <th>Niên khoá</th>
+                    <th>Khoá</th>
                     <th>Số học sinh tối đa trong lớp</th>
                     <th>Ngày bắt đầu</th>
                     <th>Ngày kết thúc</th>
@@ -75,6 +76,10 @@ require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/functions.php');
                             <input type="number" class="form-control" id="end_year" name="end_year" required>
                         </div>
                         <div class="form-group">
+                            <label for="academic">Khoá</label>
+                            <input type="number" class="form-control" id="academic" name="academic">
+                        </div>
+                        <div class="form-group">
                             <label for="max_students_per_class">Số học sinh tối đa trong lớp</label>
                             <input type="number" class="form-control" id="max_students_per_class"
                                 name="max_students_per_class" required>
@@ -115,6 +120,9 @@ require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/functions.php');
 
                         <dt class="col-sm-4">Năm học:</dt>
                         <dd class="col-sm-8" id="view_academic_year"></dd>
+                        
+                        <dt class="col-sm-4">Khoá:</dt>
+                        <dd class="col-sm-8" id="view_academic"></dd>
 
                         <dt class="col-sm-4">Số học sinh tối đa trong lớp:</dt>
                         <dd class="col-sm-8" id="view_max_students_per_class"></dd>
@@ -204,6 +212,7 @@ require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/functions.php');
                         $('#id').val(data.id);
                         $('#start_year').val(data.start_year);
                         $('#end_year').val(data.end_year);
+                        $('#academic').val(data.academic).prop('disabled', true);
                         $('#max_students_per_class').val(data.max_students_per_class);
                         $('#start_date').val(data.start_date);
                         $('#end_date').val(data.end_date);
@@ -227,6 +236,7 @@ require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/functions.php');
                     success: function (data) {
                         $('#view_id').text(data.id);
                         $('#view_academic_year').text(data.start_year + ' - ' + data.end_year);
+                        $('#view_academic').text(data.academic);
                         $('#view_max_students_per_class').text(data.max_students_per_class);
                         $('#view_start_date').text(data.start_date);
                         $('#view_end_date').text(data.end_date);

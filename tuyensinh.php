@@ -1,91 +1,74 @@
 <?php
-//                       _oo0oo_
-//                      o8888888o
-//                      88" . "88
-//                      (| -_- |)
-//                      0\  =  /0
-//                    ___/`---'\___
-//                  .' \\|     |// '.
-//                 / \\|||  :  |||// \
-//                / _||||| -:- |||||- \
-//               |   | \\\  -  /// |   |
-//               | \_|  ''\---/''  |_/ |
-//               \  .-\__  '-'  ___/-. /
-//             ___'. .'  /--.--\  `. .'___
-//          ."" '<  `.___\_<|>_/___.' >' "".
-//         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
-//         \  \ `_.   \_ __\ /__ _/   .-` /  /
-//     =====`-.____`.___ \_____/___.-`___.-'=====
-//                       `=---='
-//
-//     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//            amen đà phật copecute 
-//     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/functions.php');
-renderHeader("Tuyển Sinh");
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $fullname = $_POST['fullname'];
-    $birthday = $_POST['birthday'];
-    $permanent_residence = $_POST['permanent_residence'];
-    $phone_number = $_POST['phone_number'];
-    $high_school = $_POST['high_school'];
-    $you_are = $_POST['you_are'];
-    $major = $_POST['major'];
-    
-    try {
-        $sql = "INSERT INTO admission_application (fullname, birthday, permanent_residence, phone_number, high_school, you_are, major, status)
-                VALUES (:fullname, :birthday, :permanent_residence, :phone_number, :high_school, :you_are, :major, 0)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':fullname', $fullname);
-        $stmt->bindParam(':birthday', $birthday);
-        $stmt->bindParam(':permanent_residence', $permanent_residence);
-        $stmt->bindParam(':phone_number', $phone_number);
-        $stmt->bindParam(':high_school', $high_school);
-        $stmt->bindParam(':you_are', $you_are);
-        $stmt->bindParam(':major', $major);
-        $stmt->execute();
-        
-        echo "Application submitted successfully!";
-    } catch (PDOException $e) {
-        echo "Error: " . $e->getMessage();
-    }
-}
+renderHeader("Gửi hồ sơ xét tuyển");
 ?>
-
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <div class="container mt-5">
-        <h2>Submit Application</h2>
-        <form method="post">
+    <div class="container mt-5 mb-5">
+        <h2>Gửi hồ sơ xét tuyển</h2>
+        <form id="applicationForm">
             <div class="form-group">
-                <label for="fullname">Full Name:</label>
+                <label for="fullname">Họ và Tên:</label>
                 <input type="text" class="form-control" id="fullname" name="fullname" required>
             </div>
             <div class="form-group">
-                <label for="birthday">Birthday:</label>
+                <label for="birthday">Ngày Sinh:</label>
                 <input type="date" class="form-control" id="birthday" name="birthday" required>
             </div>
             <div class="form-group">
-                <label for="permanent_residence">Permanent Residence:</label>
+                <label for="permanent_residence">Hộ khẩu thường trú:</label>
                 <input type="text" class="form-control" id="permanent_residence" name="permanent_residence" required>
             </div>
             <div class="form-group">
-                <label for="phone_number">Phone Number:</label>
+                <label for="phone_number">Số điện thoại:</label>
                 <input type="text" class="form-control" id="phone_number" name="phone_number" required>
             </div>
             <div class="form-group">
-                <label for="high_school">High School:</label>
+                <label for="high_school">Trường THPT:</label>
                 <input type="text" class="form-control" id="high_school" name="high_school" required>
             </div>
             <div class="form-group">
-                <label for="you_are">You Are:</label>
+                <label for="you_are">Bạn là:</label>
                 <input type="text" class="form-control" id="you_are" name="you_are" required>
             </div>
             <div class="form-group">
-                <label for="major">Major:</label>
+                <label for="major">Ngành học:</label>
                 <input type="text" class="form-control" id="major" name="major" required>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Gửi Đơn</button>
         </form>
     </div>
-    <?php renderFooter(); ?>
+    
+    <script>
+    $(document).ready(function() {
+        $('#applicationForm').submit(function(e) {
+            e.preventDefault(); // Ngăn chặn form submit mặc định
+            
+            // Lấy dữ liệu từ form
+            var formData = $(this).serialize();
+            
+            // Gửi AJAX request
+            $.ajax({
+                type: 'POST',
+                url: '/includes/ajax/tuyensinh.php',
+                data: formData,
+                dataType: 'json', // Kiểu dữ liệu trả về
+                success: function(response) {
+                    if (response.status == 'success') {
+                        // Hiển thị toast khi gửi đơn thành công
+                        showToast('success', response.message);
+                        // Reset form sau khi gửi thành công
+                        $('#applicationForm')[0].reset();
+                    } else {
+                        // Hiển thị toast khi gửi đơn không thành công
+                        showToast('error', response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                    showToast('error', 'Có lỗi xảy ra khi gửi đơn.');
+                }
+            });
+        });
+    });
+</script>
+
+<?php renderFooter(); ?>

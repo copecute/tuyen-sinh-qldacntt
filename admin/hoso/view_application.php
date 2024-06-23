@@ -64,26 +64,28 @@ $application = $query->fetch(PDO::FETCH_ASSOC);
     }
 
     function approveApplication(id) {
-        $.ajax({
-            url: '/admin/hoso/approve_application.php',
-            type: 'POST',
-            data: { id: id },
-            dataType: 'json', // Để nhận dữ liệu dưới dạng JSON
-            success: function (response) {
-                if (response.status === 'success') {
-                    toastr.success(response.message);
-                    $('#viewModal').modal('hide'); // Đóng modal
-                    updateApplicationsList(); // Gọi hàm để cập nhật danh sách hồ sơ
-                } else {
-                    toastr.error(response.message);
-                }
-            },
-            error: function (xhr, status, error) {
-                console.error('Lỗi khi phê duyệt hồ sơ:', error);
-                toastr.error('Đã xảy ra lỗi khi phê duyệt hồ sơ. Vui lòng thử lại.');
+    $.ajax({
+        url: '/admin/hoso/approve_application.php',
+        type: 'POST',
+        data: { id: id },
+        dataType: 'json',
+        success: function (response) {
+            if (response.status === 'success') {
+                toastr.success(response.message);
+                $('#viewModal').modal('hide');
+                updateApplicationsList();
+            } else {
+                toastr.error(response.message);
             }
-        });
-    }
+        },
+        error: function (xhr, status, error) {
+            console.error('Lỗi khi phê duyệt hồ sơ:', error);
+            toastr.error('Đã xảy ra lỗi khi phê duyệt hồ sơ. Vui lòng thử lại.');
+        }
+    });
+}
+
+
 
 
     function rejectApplication(id) {

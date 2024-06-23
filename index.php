@@ -27,7 +27,9 @@ renderHeader("Tuyển sinh");
 ?>
 <div class="container">
     <?php if (isset($_SESSION['account_id'])): ?>
-        <h2>Chào mừng, <?php echo $username ?>!</h2>
+        
+        <h2>Chào mừng, <?php echo htmlspecialchars($student['fullname']) ?>!</h2>
+        <p>Đến từ <?php echo htmlspecialchars($student['permanent_residence']) ?></p>
     <?php else: ?>
         <h2>Chào mừng đến trang web của chúng tôi!</h2>
     <?php endif; ?>

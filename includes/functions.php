@@ -1,24 +1,25 @@
 <?php
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/config.php');
 
-$username = null;
-$userLevel = null;
+$student = null; // Khởi tạo biến student
 
+// Kiểm tra nếu account_id có trong session
 if (isset($_SESSION['account_id'])) {
     $account_id = $_SESSION['account_id'];
 
     try {
-        $sql = "SELECT * 
-                FROM accounts
-                WHERE account_id = :account_id";
+
+        $sql = "
+            SELECT *
+            FROM student_accounts sa
+            JOIN student_profiles sp ON sa.account_id = sp.account_id
+            WHERE sa.account_id = :account_id
+        ";
         $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':account_id', $account_id);
+        $stmt->bindParam(':account_id', $account_id, PDO::PARAM_INT);
         $stmt->execute();
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($user) {
-            $username = !empty($user['fullname']) ? htmlspecialchars($user['fullname']) : htmlspecialchars($user['username']);
-            $userLevel = $user['level'];
-        }
+        $student = $stmt->fetch(PDO::FETCH_ASSOC);
+
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
     }

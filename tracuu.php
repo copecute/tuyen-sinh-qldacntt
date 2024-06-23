@@ -1,81 +1,110 @@
 <?php
-//                       _oo0oo_
-//                      o8888888o
-//                      88" . "88
-//                      (| -_- |)
-//                      0\  =  /0
-//                    ___/`---'\___
-//                  .' \\|     |// '.
-//                 / \\|||  :  |||// \
-//                / _||||| -:- |||||- \
-//               |   | \\\  -  /// |   |
-//               | \_|  ''\---/''  |_/ |
-//               \  .-\__  '-'  ___/-. /
-//             ___'. .'  /--.--\  `. .'___
-//          ."" '<  `.___\_<|>_/___.' >' "".
-//         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
-//         \  \ `_.   \_ __\ /__ _/   .-` /  /
-//     =====`-.____`.___ \_____/___.-`___.-'=====
-//                       `=---='
-//
-//     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//            amen đà phật copecute 
-//     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/functions.php');
 renderHeader("Tra cứu");
-
-$phone_number = '';
-$result = null;
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $phone_number = $_POST['phone_number'];
-
-    try {
-        $sql = "SELECT * FROM admission_application WHERE phone_number = :phone_number";
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':phone_number', $phone_number);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
-        echo "Lỗi: " . $e->getMessage();
-    }
-}
 ?>
 
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tra cứu kết quả hồ sơ</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
+    <style>
+        .container {
+            max-width: 800px;
+        }
+        .mt-5 {
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
     <div class="container mt-5">
         <h2>Tra cứu kết quả hồ sơ</h2>
-        <form method="post">
+        <form id="searchForm">
             <div class="form-group">
-                <label for="phone_number">Phone Number:</label>
+                <label for="phone_number">Số điện thoại:</label>
                 <input type="text" class="form-control" id="phone_number" name="phone_number" required>
             </div>
-            <button type="submit" class="btn btn-primary">Search</button>
+            <button type="submit" class="btn btn-primary">Tra cứu</button>
         </form>
 
-        <?php if ($result): ?>
-            <div class="mt-5">
-                <h3>Hồ sơ tuyển sinh</h3>
-                <p><strong>Họ và Tên:</strong> <?php echo htmlspecialchars($result['fullname']); ?></p>
-                <p><strong>Năm sinh:</strong> <?php echo htmlspecialchars($result['birthday']); ?></p>
-                <p><strong>Số điện thoại:</strong> <?php echo htmlspecialchars($result['phone_number']); ?></p>
-                <p><strong>Trường trung học:</strong> <?php echo htmlspecialchars($result['high_school']); ?></p>
-                <p><strong>Ứng tuyển nghành:</strong> <?php echo htmlspecialchars($result['major']); ?></p>
-                <p><strong>Trạng thái:</strong> <?php
-                if ($result['status'] == 0) {
-                    echo "<div class='alert alert-warning'>Đang xét duyệt</div>";
-                } elseif ($result['status'] == 1) {
-                    echo "<div class='alert alert-success'>Đủ điều kiện nhập học</div>";
-                } elseif ($result['status'] == 2) {
-                    echo "<div class='alert alert-danger'>Hồ sơ bị từ chối</div>";
-                }
-                ?></p>
-            </div>
-        <?php elseif ($_SERVER["REQUEST_METHOD"] == "POST"): ?>
-            <div class="mt-5">
-                <p>Không có kết quả</p>
-            </div>
-        <?php endif; ?>
+        <div id="resultContainer" class="mt-5"></div>
     </div>
-    <?php renderFooter(); ?>
+
+    <!-- Bootstrap JS và jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+
+    <script>
+        $(document).ready(function() {
+            $('#searchForm').submit(function(e) {
+                e.preventDefault();
+
+                var formData = $(this).serialize();
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/includes/ajax/tracuu.php',
+                    data: formData,
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.status == 'success') {
+                            showResult(response.data);
+                            showToast('success', response.message);
+                        } else {
+                            showToast('error', response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                        showToast('error', 'Có lỗi xảy ra khi tra cứu.');
+                    }
+                });
+            });
+
+            function showResult(data) {
+                var html = `<div class="mt-5">
+                                <h3>Hồ sơ tuyển sinh</h3>
+                                <p><strong>Họ và Tên:</strong> ${data.fullname}</p>
+                                <p><strong>Năm sinh:</strong> ${data.birthday}</p>
+                                <p><strong>Số điện thoại:</strong> ${data.phone_number}</p>
+                                <p><strong>Trường trung học:</strong> ${data.high_school}</p>
+                                <p><strong>Ứng tuyển nghành:</strong> ${data.major}</p>
+                                <p><strong>Trạng thái:</strong> ${getStatusHtml(data.status)}</p>
+                            </div>`;
+                $('#resultContainer').html(html);
+            }
+
+            function getStatusHtml(status) {
+                if (status == 0) {
+                    return '<div class="alert alert-warning">Đang xét duyệt</div>';
+                } else if (status == 1) {
+                    return '<div class="alert alert-success">Đủ điều kiện nhập học</div>';
+                } else if (status == 2) {
+                    return '<div class="alert alert-danger">Hồ sơ bị từ chối</div>';
+                }
+                return '';
+            }
+
+            function showToast(type, message) {
+                toastr.options = {
+                    "closeButton": true,
+                    "progressBar": true,
+                    "timeOut": "3000",
+                };
+                if (type === 'success') {
+                    toastr.success(message);
+                } else if (type === 'error') {
+                    toastr.error(message);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+
+<?php renderFooter(); ?>

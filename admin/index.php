@@ -1,17 +1,30 @@
-<!DOCTYPE html>
-<html lang="vi">
+<?php
+//                       _oo0oo_
+//                      o8888888o
+//                      88" . "88
+//                      (| -_- |)
+//                      0\  =  /0
+//                    ___/`---'\___
+//                  .' \\|     |// '.
+//                 / \\|||  :  |||// \
+//                / _||||| -:- |||||- \
+//               |   | \\\  -  /// |   |
+//               | \_|  ''\---/''  |_/ |
+//               \  .-\__  '-'  ___/-. /
+//             ___'. .'  /--.--\  `. .'___
+//          ."" '<  `.___\_<|>_/___.' >' "".
+//         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+//         \  \ `_.   \_ __\ /__ _/   .-` /  /
+//     =====`-.____`.___ \_____/___.-`___.-'=====
+//                       `=---='
+//
+//     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//            amen đà phật copecute 
+//     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/admin/includes/functions.php');
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Quản Lý Hồ Sơ Nhập Học</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-
-<body>
+renderHeader("Admin Control Panel");
+?>
     <div class="container mt-5">
         <h2 class="mb-4">Dashboard Quản Lý Hồ Sơ Nhập Học</h2>
         <div class="row">
@@ -54,6 +67,15 @@
             <div class="col-lg-4 mb-4">
                 <div class="card">
                     <div class="card-body">
+                        <h5 class="card-title">Quản Lý Sinh viên</h5>
+                        <p class="card-text">Tài khoản, Hồ sơ sinh viên</p>
+                        <a href="/admin/sinhvien" class="btn btn-primary">Quản Lý</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
                         <h5 class="card-title">Thống kê</h5>
                         <p class="card-text">Thống kê báo cáo</p>
                         <a href="/admin/thongke.php" class="btn btn-primary">Xem</a>
@@ -72,11 +94,4 @@
         </div>
     </div>
 
-    <!-- Bootstrap JS và jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- Custom Script -->
-    <script src="js/script.js"></script>
-</body>
-
-</html>
+    <?php renderFooter(); ?>

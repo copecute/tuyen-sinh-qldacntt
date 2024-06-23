@@ -32,6 +32,7 @@ foreach ($settings as $setting) {
     $table .= '<tr>
         <td>' . htmlspecialchars($setting['id']) . '</td>
         <td>' . htmlspecialchars($setting['academic_year']) . '</td>
+        <td>' . htmlspecialchars($setting['academic']) . '</td>
         <td>' . htmlspecialchars($setting['max_students_per_class']) . '</td>
         <td>' . htmlspecialchars($setting['start_date']) . '</td>
         <td>' . htmlspecialchars($setting['end_date']) . '</td>

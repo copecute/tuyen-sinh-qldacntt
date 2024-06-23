@@ -14,15 +14,21 @@ if (isset($_POST['start_year'], $_POST['end_year'], $_POST['max_students_per_cla
     $max_students_per_class = $_POST['max_students_per_class'];
     $start_date = $_POST['start_date'];
     $end_date = $_POST['end_date'];
-
-    // Kiểm tra ngày kết thúc phải lớn hơn hoặc bằng ngày bắt đầu
-    if (strtotime($end_date) < strtotime($start_date)) {
-        $response['message'] = 'Ngày kết thúc phải lớn hơn hoặc bằng ngày bắt đầu.';
-        echo json_encode($response);
-        exit;
-    }
+    $academic = isset($_POST['academic']) ? $_POST['academic'] : null;
 
     try {
+        // Lấy giá trị academic của bản ghi cuối cùng
+        $query = "SELECT academic FROM admissions_settings ORDER BY id DESC LIMIT 1";
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $last_record = $stmt->fetch(PDO::FETCH_ASSOC);
+        $last_academic = $last_record ? (int)$last_record['academic'] : 0;
+
+        // Nếu academic không được gửi trong POST request thì tự động tăng giá trị
+        if ($academic === null || $academic === "") {
+            $academic = $last_academic + 1;
+        }
+
         // Kiểm tra trùng lặp thời gian với các bản ghi khác
         $query = "SELECT * FROM admissions_settings WHERE (:start_date BETWEEN start_date AND end_date OR :end_date BETWEEN start_date AND end_date OR start_date BETWEEN :start_date AND :end_date OR end_date BETWEEN :start_date AND :end_date)";
         if ($id) {
@@ -46,7 +52,8 @@ if (isset($_POST['start_year'], $_POST['end_year'], $_POST['max_students_per_cla
                 $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             } else {
                 // Thêm bản ghi mới
-                $stmt = $conn->prepare("INSERT INTO admissions_settings (academic_year, max_students_per_class, start_date, end_date) VALUES (:academic_year, :max_students_per_class, :start_date, :end_date)");
+                $stmt = $conn->prepare("INSERT INTO admissions_settings (academic, academic_year, max_students_per_class, start_date, end_date) VALUES (:academic, :academic_year, :max_students_per_class, :start_date, :end_date)");
+                $stmt->bindParam(':academic', $academic, PDO::PARAM_INT);
             }
 
             $stmt->bindParam(':academic_year', $academic_year, PDO::PARAM_STR);
@@ -64,6 +71,8 @@ if (isset($_POST['start_year'], $_POST['end_year'], $_POST['max_students_per_cla
     } catch (Exception $e) {
         $response['message'] = 'Lỗi: ' . $e->getMessage();
     }
+} else {
+    $response['message'] = 'Thiếu thông tin cần thiết để lưu bản ghi.';
 }
 
 echo json_encode($response);
