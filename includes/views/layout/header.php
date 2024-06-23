@@ -11,7 +11,7 @@
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="<?php echo $metaTitle; ?>">
     <meta property="og:description" content="<?php echo $metaDescription; ?>">
-    
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <link rel="shortcut icon" type="image/x-icon" href="/resources/images/fav.png">
     <!-- fontawesome 6.4.2 -->
@@ -42,7 +42,7 @@
                     <div class="header-one-wrapper">
                         <div class="left-side-header">
                             <a href="/" class="logo-area">
-                                <img src="/resources/images/logo/logo-1.svg" alt="logo">
+                                <img src="/resources/images/logo/logo.png" alt="logo">
                             </a>
                         </div>
 
@@ -127,7 +127,19 @@
                                         </ul>
                                     </li>
                                     <li>
-                                        <a class="nav-link" href="/tuyensinh.php" class="rts-btn btn-primary">Tuyển Sinh</a>
+                                        <a class="nav-link" href="/tracuu.php" data-step="2" data-intro="Sau đó hãy tra cứu kết quả xét tuyển nhé!" class="rts-btn btn-primary">Tra cứu</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a class="nav-link" href="#" class="rts-btn btn-primary">Tuyển dụng</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a class="nav-link" onclick="introJs().start();" class="rts-btn btn-primary">Hướng dẫn</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a class="nav-link" href="#" class="rts-btn btn-primary">Giới thiệu</a>
                                     </li>
                                 </ul>
                             </nav>
@@ -147,9 +159,10 @@
                                     </svg>
                                 </div>
                             </div>
+
                             <div class="buttons-area">
-                                <a href="login.php" class="rts-btn btn-border">Đăng nhập</a>
-                                <!-- <a href="/register.php" class="rts-btn btn-primary">Sign Up</a> -->
+                                <a href="login.php" data-step="3" data-intro="Nếu bạn đã được phê duyệt hãy đăng nhập bằng tài khoản mà nhà trường cung cấp!" class="rts-btn btn-border">Đăng nhập</a>
+                                <a data-step="1" data-intro="Xin chào, trước tiên bạn hãy đăng ký xét tuyển!" href="/tuyensinh.php" class="rts-btn btn-primary" style="animation-name: pulse;animation-delay: 0s;animation-duration: 1s;animation-iteration-count: infinite;">ĐĂNG KÝ XÉT TUYỂN</a>
                             </div>
                             <div class="menu-btn" id="menu-btn">
                                 <svg width="20" height="16" viewBox="0 0 20 16" fill="none"

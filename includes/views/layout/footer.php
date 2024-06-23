@@ -4,8 +4,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="call-to-sction bg_image shape-move">
-                    <h2 class="title">Skills Certificate From <br> the Studyhub</h2>
-                    <a href="course-one.html" class="rts-btn btn-primary-white with-arrow">View All Course <i
+                    <h2 class="title">Thực học - Thực hành - Thực nghiệp<br> Cùng HPC</h2>
+                    <a href="/tuyensinh.php" class="rts-btn btn-primary-white with-arrow">Xét tuyển ngay <i
                             class="fa-regular fa-arrow-right"></i></a>
                     <div class="cta-image">
                         <img src="/resources/images/cta/women.png" alt="">
@@ -27,18 +27,17 @@
                     <div class="footer-singl-wized left-logo">
                         <div class="head">
                             <a href="#">
-                                <img src="/resources/images/logo/logo-1.svg" alt="logo" loading="lazy">
+                                <img src="/resources/images/logo/logo.png" alt="logo" loading="lazy">
                             </a>
                         </div>
                         <div class="body">
                             <p class="dsic">
-                                We are passionate education dedicated to providing high-quality resources learners
-                                all backgrounds.
+                                TRƯỜNG CAO ĐẲNG CÔNG NGHỆ BÁCH KHOA HÀ NỘI
                             </p>
                             <ul class="wrapper-list">
-                                <li><i class="fa-regular fa-location-dot"></i>Yarra Park, Melbourne, Australia </li>
-                                <li><i class="fa-regular fa-phone"></i><a href="tel:+4733378901">+(61) 485-826-710</a>
-                                </li>
+                                <li><i class="fa-regular fa-location-dot"></i>Số 18-20 Nhân Mỹ - Mỹ Đình 1 - Quận Nam Từ
+                                    Liêm - TP. Hà Nội </li>
+                                <li><i class="fa-regular fa-phone"></i><a href="tel:0961224529">0961 224 529</a></li>
                             </ul>
                         </div>
                     </div>
@@ -46,31 +45,15 @@
                     <!-- single sized  footer  -->
                     <div class="footer-singl-wized">
                         <div class="head">
-                            <h6 class="title">Quick Links</h6>
+                            <h6 class="title">Khám phá</h6>
                         </div>
                         <div class="body">
                             <ul class="menu">
-                                <li><a href="course-two.html">Latest Courses</a></li>
-                                <li><a href="about.html">Mission & Vision</a></li>
-                                <li><a href="become-instructor.html">Join a Carrer</a></li>
-                                <li><a href="zoom-meeting.html">Zoom Meeting</a></li>
-                                <li><a href="pricing.html">Pricing Plan</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- single sized  footer end -->
-                    <!-- single sized  footer  -->
-                    <div class="footer-singl-wized">
-                        <div class="head">
-                            <h6 class="title">Explore</h6>
-                        </div>
-                        <div class="body">
-                            <ul class="menu">
-                                <li><a href="course-one.html">Course One</a></li>
-                                <li><a href="course-two.html">Course Two</a></li>
-                                <li><a href="create-course.html">Create Course</a></li>
-                                <li><a href="lesson-details.html">Lesson Details</a></li>
-                                <li><a href="instructor.html">Instructor</a></li>
+                                <li><a href="#">Tuyển dụng</a></li>
+                                <li><a href="#">Tin tức</a></li>
+                                <li><a href="#">Du học</a></li>
+                                <li><a href="#">Chuyện của HPC</a></li>
+                                <li><a href="#">Giới thiệu</a></li>
                             </ul>
                         </div>
                     </div>
@@ -78,20 +61,15 @@
                     <!-- single sized  footer  -->
                     <div class="footer-singl-wized input-area">
                         <div class="head">
-                            <h6 class="title">Newsletter</h6>
+                            <h6 class="title">Fanpage</h6>
                         </div>
                         <div class="body">
-                            <p class="disc">Subscribe Our newsletter get update our new course</p>
-                            <form action="#">
-                                <div class="input-area-fill">
-                                    <input type="email" placeholder="Enter Your Email" required>
-                                    <button> Subscribe</button>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <input type="checkbox" id="exampleCheck1">
-                                    <label for="exampleCheck1">I agree to the terms of use and privacy policy.</label>
-                                </div>
-                            </form>
+                            <iframe loading="lazy" style="border: none; overflow: hidden;"
+                                src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FCaodangcongnghebachkhoahanoi%2F&amp;width=410px&amp;height=150px&amp;"
+                                width="410px" height="130px" frameborder="0" scrolling="no"
+                                data-rocket-lazyload="fitvidscompatible"
+                                data-lazy-src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FCaodangcongnghebachkhoahanoi%2F&amp;width=410px&amp;height=150px&amp;"
+                                data-ll-status="loaded" class="entered lazyloaded"></iframe>
                         </div>
                     </div>
                     <!-- single sized  footer end -->
@@ -105,13 +83,12 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="copyright-area-one">
-                        <p>Copyright © 2024 All Rights Reserved by Studyhub</p>
+                        <p>Copyright © 2024 All Rights Design by Club Thịt Chó Bách Khoa</p>
                         <div class="social-copyright">
                             <ul>
                                 <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
                                 <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
-                                <li><a href="#"><i class="fa-brands fa-linkedin"></i></a></li>
-                                <li><a href="#"><i class="fa-brands fa-pinterest"></i></a></li>
+                                <li><a href="#"><i class="fa-brands fa-tiktok"></i></a></li>
                                 <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
                             </ul>
                         </div>
@@ -122,71 +99,16 @@
     </div>
 </div>
 
-<!-- Modal -->
-<div class="modal login-pupup-modal fade" id="exampleModal-login" tabindex="-1" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Hi, Welcome back!</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="#" class="login-form">
-                    <input type="text" placeholder="Username of Email Address" required>
-                    <input type="password" placeholder="Password" required>
-                    <div class="d-flex mb--20 align-items-center">
-                        <input type="checkbox" id="examplecheck-modal">
-                        <label for="examplecheck-modal">I agree to the terms of use and privacy policy.</label>
-                    </div>
-                    <button type="submit" class="rts-btn btn-primary">Sign In</button>
-
-                    <p class="dont-acc mt--20">Dont Have an Account? <a href="registration.html">Sign-up</a> </p>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <!-- header style two -->
 <div id="side-bar" class="side-bar header-two">
     <button class="close-icon-menu"><i class="far fa-times"></i></button>
-    <!-- inner menu area desktop start -->
-    <div class="inner-main-wrapper-desk">
-        <div class="thumbnail">
-            <img src="assets/images/banner/04.jpg" alt="elevate">
-        </div>
-        <div class="inner-content">
-            <h4 class="title">We Build Building and Great Constructive Homes.</h4>
-            <p class="disc">
-                We successfully cope with tasks of varying complexity, provide long-term guarantees and regularly master
-                new technologies.
-            </p>
-            <div class="footer">
-                <h4 class="title">Got a project in mind?</h4>
-                <a href="contact.html" class="rts-btn btn-primary">Let's talk</a>
-            </div>
-        </div>
-    </div>
     <!-- mobile menu area start -->
     <div class="mobile-menu-main">
         <nav class="nav-main mainmenu-nav mt--30">
             <ul class="mainmenu metismenu" id="mobile-menu-active">
-                <li class="has-droupdown">
-                    <a href="#" class="main">Home</a>
-                    <ul class="submenu mm-collapse">
-                        <li><a class="mobile-menu-link" href="index-2.html">Main Home</a></li>
-                        <li><a class="mobile-menu-link" href="index-two.html">Online Course</a></li>
-                        <li><a class="mobile-menu-link" href="index-three.html">Course Hub</a></li>
-                        <li><a class="mobile-menu-link" href="index-four.html">Distance Learning</a></li>
-                        <li><a class="mobile-menu-link" href="index-five.html">Single Instructor</a></li>
-                        <li><a class="mobile-menu-link" href="index-six.html">Language Academy</a></li>
-                        <li><a class="mobile-menu-link" href="index-seven.html">Gym Instructor</a></li>
-                        <li><a class="mobile-menu-link" href="index-eight.html">Kitchen Coach</a></li>
-                        <li><a class="mobile-menu-link" href="index-nine.html">Course Portal</a></li>
-                        <li><a class="mobile-menu-link" href="index-ten.html">Business Coach</a></li>
-                    </ul>
+                <li>
+                    <a href="/" class="main">Trang chủ</a>
                 </li>
                 <li class="has-droupdown">
                     <a href="#" class="main">Pages</a>
@@ -337,29 +259,6 @@
 </div>
 <!-- header style two End -->
 
-<!-- modal -->
-<div id="myModal-1" class="modal fade" role="dialog">
-    <div class="modal-dialog bg_image">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-bs-dismiss="modal"><i class="fa-light fa-x"></i></button>
-            </div>
-            <div class="modal-body text-center">
-                <div class="inner-content">
-                    <div class="title-area">
-                        <span class="pre">Get Our Courses Free</span>
-                        <h4 class="title">Wonderful for Learning</h4>
-                    </div>
-                    <form action="#">
-                        <input type="text" placeholder="Your Mail.." required>
-                        <button>Download Now</button>
-                        <span>Your information will never be shared with any third party</span>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <!-- rts backto top start -->
 <div class="progress-wrap">
     <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
@@ -375,7 +274,7 @@
     <div class="container">
         <div class="search-input-inner">
             <div class="input-div">
-                <input class="search-input autocomplete" type="text" placeholder="Search by keyword or #">
+                <input class="search-input autocomplete" type="text" placeholder="Nhập số điện thoại tra cứu kết quả...">
                 <button><i class="far fa-search"></i></button>
             </div>
         </div>

@@ -1,37 +1,18 @@
 <?php
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/functions.php');
-renderHeader("Tra cứu");
+renderHeader("Tra cứu kết quả xét tuyển");
 ?>
 
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tra cứu kết quả hồ sơ</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .container {
-            max-width: 800px;
-        }
-        .mt-5 {
-            margin-top: 50px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container mt-5">
-        <h2>Tra cứu kết quả hồ sơ</h2>
+        <h2>Tra cứu kết quả xét tuyển</h2>
         <form id="searchForm">
             <div class="form-group">
                 <label for="phone_number">Số điện thoại:</label>
-                <input type="text" class="form-control" id="phone_number" name="phone_number" required>
+                <input type="text" class="copecute-form-control" id="phone_number" name="phone_number" required>
             </div>
             <button type="submit" class="btn btn-primary">Tra cứu</button>
         </form>
 
         <div id="resultContainer" class="mt-5"></div>
-    </div>
 
     <!-- Bootstrap JS và jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -104,7 +85,5 @@ renderHeader("Tra cứu");
             }
         });
     </script>
-</body>
-</html>
 
 <?php renderFooter(); ?>
