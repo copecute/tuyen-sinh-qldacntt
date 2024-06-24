@@ -21,43 +21,38 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //            amen đà phật copecute 
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/functions.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/admin/includes/functions.php');
 
-// Fetch total number of admission_application
+// Lấy tổng số lượng hồ sơ đăng ký
 $totaladmission_application = $conn->query("SELECT COUNT(*) FROM admission_application")->fetchColumn();
 
-// Fetch total number of admission_application with 'status' = 1
+// Lấy tổng số lượng hồ sơ đăng ký nhập học có 'status' = 1 (đã duyệt)
 $totalApprovedadmission_application = $conn->query("SELECT COUNT(*) FROM admission_application WHERE status = 1")->fetchColumn();
 
-// Fetch total number of admission_application with 'status' = 0
+// Lấy tổng số lượng hồ sơ đăng ký nhập học có 'status' = 0 (đang chờ)
 $totalPendingadmission_application = $conn->query("SELECT COUNT(*) FROM admission_application WHERE status = 0")->fetchColumn();
 
-// Fetch total number of admission_application with 'status' = 2
+// Lấy tổng số lượng hồ sơ đăng ký nhập học có 'status' = 2 (bị từ chối)
 $totalRejectedadmission_application = $conn->query("SELECT COUNT(*) FROM admission_application WHERE status = 2")->fetchColumn();
 
-// Fetch admission_application by major
+// Lấy số lượng hồ sơ đăng ký nhập học theo ngành học
 $admission_applicationByMajor = $conn->query("SELECT major, COUNT(*) as count FROM admission_application GROUP BY major")->fetchAll();
 
-// Fetch admission_application by 'you_are'
+// Lấy số lượng hồ sơ đăng ký nhập học theo 'you_are' (đối tượng bạn là ai)
 $admission_applicationByYouAre = $conn->query("SELECT you_are, COUNT(*) as count FROM admission_application GROUP BY you_are")->fetchAll();
 
-// Fetch admission_application by high_school
+// Lấy số lượng hồ sơ đăng ký nhập học theo trường trung học
 $admission_applicationByHighSchool = $conn->query("SELECT high_school, COUNT(*) as count FROM admission_application GROUP BY high_school")->fetchAll();
 
-// Fetch admission_application by status
+// Lấy số lượng hồ sơ đăng ký nhập học theo trạng thái
 $admission_applicationByStatus = $conn->query("SELECT status, COUNT(*) as count FROM admission_application GROUP BY status")->fetchAll();
 
-// Fetch admission_application by permanent_residence
+// Lấy số lượng hồ sơ đăng ký nhập học theo nơi cư trú
 $admission_applicationByResidence = $conn->query("SELECT permanent_residence, COUNT(*) as count FROM admission_application GROUP BY permanent_residence")->fetchAll();
+
+renderHeader("Thống kê hồ sơ xét tuyển");
 ?>
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <title>Thống Kê Hồ Sơ</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
+
 <div class="container">
     <h1 class="mt-5">Thống Kê Hồ Sơ</h1>
     <div class="row mt-3">
@@ -106,90 +101,90 @@ $admission_applicationByResidence = $conn->query("SELECT permanent_residence, CO
     <h2 class="mt-5">Hồ Sơ Theo Chuyên Ngành</h2>
     <table class="table table-bordered mt-3">
         <thead class="thead-dark">
-        <tr>
-            <th>Chuyên Ngành</th>
-            <th>Số Lượng</th>
-        </tr>
+            <tr>
+                <th>Chuyên Ngành</th>
+                <th>Số Lượng</th>
+            </tr>
         </thead>
         <tbody>
-        <?php foreach ($admission_applicationByMajor as $row): ?>
-            <tr>
-                <td><?php echo htmlspecialchars($row['major']); ?></td>
-                <td><?php echo $row['count']; ?></td>
-            </tr>
-        <?php endforeach; ?>
+            <?php foreach ($admission_applicationByMajor as $row): ?>
+                <tr>
+                    <td><?php echo htmlspecialchars($row['major']); ?></td>
+                    <td><?php echo $row['count']; ?></td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
 
     <h2 class="mt-5">Hồ Sơ Theo Loại Học Sinh</h2>
     <table class="table table-bordered mt-3">
         <thead class="thead-dark">
-        <tr>
-            <th>Loại Học Sinh</th>
-            <th>Số Lượng</th>
-        </tr>
+            <tr>
+                <th>Loại Học Sinh</th>
+                <th>Số Lượng</th>
+            </tr>
         </thead>
         <tbody>
-        <?php foreach ($admission_applicationByYouAre as $row): ?>
-            <tr>
-                <td><?php echo htmlspecialchars($row['you_are']); ?></td>
-                <td><?php echo $row['count']; ?></td>
-            </tr>
-        <?php endforeach; ?>
+            <?php foreach ($admission_applicationByYouAre as $row): ?>
+                <tr>
+                    <td><?php echo htmlspecialchars($row['you_are']); ?></td>
+                    <td><?php echo $row['count']; ?></td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
 
     <h2 class="mt-5">Hồ Sơ Theo Trường THPT</h2>
     <table class="table table-bordered mt-3">
         <thead class="thead-dark">
-        <tr>
-            <th>Trường THPT</th>
-            <th>Số Lượng</th>
-        </tr>
+            <tr>
+                <th>Trường THPT</th>
+                <th>Số Lượng</th>
+            </tr>
         </thead>
         <tbody>
-        <?php foreach ($admission_applicationByHighSchool as $row): ?>
-            <tr>
-                <td><?php echo htmlspecialchars($row['high_school']); ?></td>
-                <td><?php echo $row['count']; ?></td>
-            </tr>
-        <?php endforeach; ?>
+            <?php foreach ($admission_applicationByHighSchool as $row): ?>
+                <tr>
+                    <td><?php echo htmlspecialchars($row['high_school']); ?></td>
+                    <td><?php echo $row['count']; ?></td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
 
     <h2 class="mt-5">Hồ Sơ Theo Trạng Thái</h2>
     <table class="table table-bordered mt-3">
         <thead class="thead-dark">
-        <tr>
-            <th>Trạng Thái</th>
-            <th>Số Lượng</th>
-        </tr>
+            <tr>
+                <th>Trạng Thái</th>
+                <th>Số Lượng</th>
+            </tr>
         </thead>
         <tbody>
-        <?php foreach ($admission_applicationByStatus as $row): ?>
-            <tr>
-                <td><?php echo htmlspecialchars($row['status']); ?></td>
-                <td><?php echo $row['count']; ?></td>
-            </tr>
-        <?php endforeach; ?>
+            <?php foreach ($admission_applicationByStatus as $row): ?>
+                <tr>
+                    <td><?php echo htmlspecialchars($row['status']); ?></td>
+                    <td><?php echo $row['count']; ?></td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
 
     <h2 class="mt-5">Hồ Sơ Theo Nơi Thường Trú</h2>
     <table class="table table-bordered mt-3">
         <thead class="thead-dark">
-        <tr>
-            <th>Nơi Thường Trú</th>
-            <th>Số Lượng</th>
-        </tr>
+            <tr>
+                <th>Nơi Thường Trú</th>
+                <th>Số Lượng</th>
+            </tr>
         </thead>
         <tbody>
-        <?php foreach ($admission_applicationByResidence as $row): ?>
-            <tr>
-                <td><?php echo htmlspecialchars($row['permanent_residence']); ?></td>
-                <td><?php echo $row['count']; ?></td>
-            </tr>
-        <?php endforeach; ?>
+            <?php foreach ($admission_applicationByResidence as $row): ?>
+                <tr>
+                    <td><?php echo htmlspecialchars($row['permanent_residence']); ?></td>
+                    <td><?php echo $row['count']; ?></td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
 </div>
@@ -197,5 +192,4 @@ $admission_applicationByResidence = $conn->query("SELECT permanent_residence, CO
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+<?php renderFooter(); ?>

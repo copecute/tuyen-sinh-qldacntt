@@ -21,21 +21,35 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //            amen đà phật copecute 
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/functions.php'); ?>
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/admin/includes/functions.php'); ?>
 
 <?php renderHeader("Đăng nhập"); ?>
-
-<h2>Đăng nhập</h2>
-<form id="loginForm" action="/includes/authencation.php?action=login" method="post">
-    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-    <label for="username">Tên đăng nhập:</label><br>
-    <input type="text" id="username" name="username" required><br>
-    <label for="password">Mật khẩu:</label><br>
-    <input type="password" id="password" name="password" required><br><br>
-    <input type="submit" value="Đăng nhập">
-</form>
-<p>Chưa có tài khoản? <a href="register.php">Đăng ký</a></p>
-
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h2>Đăng nhập</h2>
+                </div>
+                <div class="card-body">
+                    <form id="loginForm">
+                        <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+                        <div class="form-group">
+                            <label for="username">Tên đăng nhập:</label>
+                            <input type="text" id="username" name="username" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Mật khẩu:</label>
+                            <input type="password" id="password" name="password" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+                    </form>
+                    <p class="mt-3 text-center">Chưa có tài khoản? <a href="/admin/register.php">Đăng ký</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     // Xử lý Ajax cho form đăng nhập
     $(document).ready(function () {
@@ -55,7 +69,7 @@ require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/functions.php'); ?>
                         // Đăng nhập thành công
                         setTimeout(function () {
                             window.location.href = '/admin/index.php';
-                        }, 3000);
+                        }, 1000);
                     } else {
                         // Hiển thị thông báo lỗi
                         toastr.error(response.message);

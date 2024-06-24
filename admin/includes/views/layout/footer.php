@@ -1,7 +1,7 @@
 </div>
 <footer class="py-5 bg-dark">
     <div class="container">
-        <p class="m-0 text-center text-white">Tuyển sinh &copy; 2024</p>
+        <p class="m-0 text-center text-white">Copyright © 2024 All Rights Design by Club Thịt Chó Bách Khoa</p>
     </div>
 </footer>
 <!-- Bootstrap JS và jQuery -->
