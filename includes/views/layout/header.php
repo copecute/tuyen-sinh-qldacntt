@@ -11,8 +11,7 @@
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="<?php echo $metaTitle; ?>">
     <meta property="og:description" content="<?php echo $metaDescription; ?>">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <script src="/resources/js/jquery-3.5.1.min.js"></script>
     <link rel="shortcut icon" type="image/x-icon" href="/resources/images/fav.png">
     <!-- fontawesome 6.4.2 -->
     <link rel="stylesheet" href="/resources/css/plugins/fontawesome-6.css">

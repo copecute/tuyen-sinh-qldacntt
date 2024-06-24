@@ -24,11 +24,11 @@
 
 <body>
     <!-- Bootstrap JS và jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="/resources/js/jquery-3.5.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="/">Tuyển Sinh</a>
+            <a class="navbar-brand" href="/admin">Admin Panel</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -61,4 +61,4 @@
             </div>
         </div>
     </nav>
-    <div class="container">
+    <div class="container mb-5 mt-5">

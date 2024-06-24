@@ -14,12 +14,6 @@ renderHeader("Tra cứu kết quả xét tuyển");
 
         <div id="resultContainer" class="mt-5"></div>
 
-    <!-- Bootstrap JS và jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-
     <script>
         $(document).ready(function() {
             $('#searchForm').submit(function(e) {
@@ -73,7 +67,7 @@ renderHeader("Tra cứu kết quả xét tuyển");
 
             function showToast(type, message) {
                 toastr.options = {
-                    "closeButton": true,
+                    "closeButton": false,
                     "progressBar": true,
                     "timeOut": "3000",
                 };

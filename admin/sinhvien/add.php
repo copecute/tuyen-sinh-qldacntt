@@ -1,5 +1,28 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . '/includes/functions.php');
+//                       _oo0oo_
+//                      o8888888o
+//                      88" . "88
+//                      (| -_- |)
+//                      0\  =  /0
+//                    ___/`---'\___
+//                  .' \\|     |// '.
+//                 / \\|||  :  |||// \
+//                / _||||| -:- |||||- \
+//               |   | \\\  -  /// |   |
+//               | \_|  ''\---/''  |_/ |
+//               \  .-\__  '-'  ___/-. /
+//             ___'. .'  /--.--\  `. .'___
+//          ."" '<  `.___\_<|>_/___.' >' "".
+//         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+//         \  \ `_.   \_ __\ /__ _/   .-` /  /
+//     =====`-.____`.___ \_____/___.-`___.-'=====
+//                       `=---='
+//
+//     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//            amen đà phật copecute 
+//     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/admin/includes/functions.php');
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
@@ -8,18 +31,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $birthday = $_POST['birthday'];
     $permanent_residence = $_POST['permanent_residence'];
     $phone_number = $_POST['phone_number'];
-
+    
     try {
         // Bắt đầu transaction
         $conn->beginTransaction();
-
+        
         // Thêm vào bảng student_accounts
         $stmt = $conn->prepare("INSERT INTO student_accounts (username, password) VALUES (:username, :password)");
         $stmt->bindParam(':username', $username, PDO::PARAM_STR);
         $stmt->bindParam(':password', $password, PDO::PARAM_STR);
         $stmt->execute();
         $account_id = $conn->lastInsertId();
-
+        
         // Thêm vào bảng student_profiles
         $stmt = $conn->prepare("INSERT INTO student_profiles (account_id, fullname, birthday, permanent_residence, phone_number) 
                                 VALUES (:account_id, :fullname, :birthday, :permanent_residence, :phone_number)");
@@ -29,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bindParam(':permanent_residence', $permanent_residence, PDO::PARAM_STR);
         $stmt->bindParam(':phone_number', $phone_number, PDO::PARAM_STR);
         $stmt->execute();
-
+        
         // Commit transaction
         $conn->commit();
 
@@ -42,17 +65,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo 'Lỗi: ' . $e->getMessage();
     }
 }
+renderHeader("Thêm mới sinh viên");
 ?>
 
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thêm mới Sinh viên</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
     <div class="container mt-5">
         <h2>Thêm mới Sinh viên</h2>
         <form method="POST">
@@ -83,5 +98,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button type="submit" class="btn btn-primary">Thêm Sinh viên</button>
         </form>
     </div>
-</body>
-</html>
+<?php renderFooter(); ?>

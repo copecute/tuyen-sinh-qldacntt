@@ -289,7 +289,7 @@
     // Hàm hiển thị toast
     function showToast(type, message) {
         toastr.options = {
-            "closeButton": true,
+            "closeButton": false,
             "progressBar": true,
             "timeOut": "3000",
         };
@@ -301,6 +301,9 @@
     }
 </script>
 
+
+<script src="/resources/js/toastr.min.js"></script>
+<link rel="stylesheet" href="/resources/css/toastr.min.css">
 <!-- all scripts -->
 <!-- jquery min js -->
 <script src="/resources/js/vendor/jquery.min.js"></script>

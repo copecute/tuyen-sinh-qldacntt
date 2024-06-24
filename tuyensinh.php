@@ -2,6 +2,7 @@
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/functions.php');
 renderHeader("Gửi hồ sơ xét tuyển");
 ?>
+
 <div class="container mt-5 mb-5">
     <h2>Gửi hồ sơ xét tuyển</h2>
     <form id="applicationForm">

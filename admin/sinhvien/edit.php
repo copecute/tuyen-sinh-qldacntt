@@ -1,5 +1,27 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . '/includes/functions.php');
+//                       _oo0oo_
+//                      o8888888o
+//                      88" . "88
+//                      (| -_- |)
+//                      0\  =  /0
+//                    ___/`---'\___
+//                  .' \\|     |// '.
+//                 / \\|||  :  |||// \
+//                / _||||| -:- |||||- \
+//               |   | \\\  -  /// |   |
+//               | \_|  ''\---/''  |_/ |
+//               \  .-\__  '-'  ___/-. /
+//             ___'. .'  /--.--\  `. .'___
+//          ."" '<  `.___\_<|>_/___.' >' "".
+//         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+//         \  \ `_.   \_ __\ /__ _/   .-` /  /
+//     =====`-.____`.___ \_____/___.-`___.-'=====
+//                       `=---='
+//
+//     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//            amen đà phật copecute 
+//     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/admin/includes/functions.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
     $id = $_POST['id'];
@@ -18,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
         $stmt->bindParam(':phone_number', $phone_number, PDO::PARAM_STR);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
-
+        
         echo json_encode(['status' => 'success', 'message' => 'Cập nhật thành công.']);
         exit;
     } catch (Exception $e) {
@@ -29,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-
+    
     $stmt = $conn->prepare("SELECT * FROM student_profiles WHERE id = :id");
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
@@ -38,17 +60,9 @@ if (isset($_GET['id'])) {
     header('Location: index.php');
     exit();
 }
+renderHeader("Sửa sinh viên");
 ?>
 
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sửa Sinh viên</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
     <div class="container mt-5">
         <h2>Sửa Sinh viên</h2>
         <form id="editStudentForm" method="POST">
@@ -99,5 +113,4 @@ if (isset($_GET['id'])) {
             });
         });
     </script>
-</body>
-</html>
+<?php renderFooter(); ?>

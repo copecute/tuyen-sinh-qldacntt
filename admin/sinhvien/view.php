@@ -1,9 +1,31 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . '/includes/functions.php');
+//                       _oo0oo_
+//                      o8888888o
+//                      88" . "88
+//                      (| -_- |)
+//                      0\  =  /0
+//                    ___/`---'\___
+//                  .' \\|     |// '.
+//                 / \\|||  :  |||// \
+//                / _||||| -:- |||||- \
+//               |   | \\\  -  /// |   |
+//               | \_|  ''\---/''  |_/ |
+//               \  .-\__  '-'  ___/-. /
+//             ___'. .'  /--.--\  `. .'___
+//          ."" '<  `.___\_<|>_/___.' >' "".
+//         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+//         \  \ `_.   \_ __\ /__ _/   .-` /  /
+//     =====`-.____`.___ \_____/___.-`___.-'=====
+//                       `=---='
+//
+//     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//            amen đà phật copecute 
+//     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/admin/includes/functions.php');
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-
+    
     $stmt = $conn->prepare("SELECT * FROM student_profiles WHERE id = :id");
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
@@ -17,25 +39,9 @@ if (isset($_GET['id'])) {
     echo "Không tìm thấy sinh viên.";
     exit;
 }
+renderHeader("Thông tin sinh viên");
 ?>
 
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thông tin Sinh viên</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        .container {
-            max-width: 600px;
-        }
-        .mt-5 {
-            margin-top: 50px;
-        }
-    </style>
-</head>
-<body>
     <div class="container mt-5">
         <h2>Thông tin Sinh viên</h2>
         <div class="card mt-4">
@@ -53,5 +59,4 @@ if (isset($_GET['id'])) {
     <!-- Bootstrap JS và jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+<?php renderFooter(); ?>
