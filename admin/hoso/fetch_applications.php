@@ -85,7 +85,7 @@ if ($stmt->rowCount() > 0) {
                 $statusClass = 'text-info';
                 break;
             case '1':
-                $status = 'Đủ điều kiện nhập học';
+                $status = 'Đã phê duyệt';
                 $statusClass = 'text-success';
                 break;
             case '2':

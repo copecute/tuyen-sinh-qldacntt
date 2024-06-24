@@ -48,6 +48,7 @@ $total_pages = ceil($total_lops / $limit);
                 <td><?= htmlspecialchars($lop['ten_lop']) ?></td>
                 <td><?= htmlspecialchars($lop['ten_nghanh']) ?></td>
                 <td>
+                <a class="btn btn-primary btn-sm editLopBtn" href="/admin/lop/view.php?id=<?= $lop['id'] ?>">Xem</a>
                     <button class="btn btn-primary btn-sm editLopBtn" data-id="<?= $lop['id'] ?>">Sửa</button>
                     <button class="btn btn-danger btn-sm deleteLopBtn" data-id="<?= $lop['id'] ?>">Xóa</button>
                 </td>

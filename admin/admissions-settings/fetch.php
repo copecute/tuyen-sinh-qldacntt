@@ -1,5 +1,5 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . '/includes/functions.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/functions.php');
 
 // Thiết lập số bản ghi trên mỗi trang
 $records_per_page = 10;
@@ -28,8 +28,11 @@ $stmt->execute();
 $settings = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $table = '';
-foreach ($settings as $setting) {
-    $table .= '<tr>
+if (empty($settings)) {
+    $table = '<tr><td colspan="7">Không có dữ liệu</td></tr>';
+} else {
+    foreach ($settings as $setting) {
+        $table .= '<tr>
         <td>' . htmlspecialchars($setting['id']) . '</td>
         <td>' . htmlspecialchars($setting['academic_year']) . '</td>
         <td>' . htmlspecialchars($setting['academic']) . '</td>
@@ -41,7 +44,8 @@ foreach ($settings as $setting) {
             <button class="btn btn-warning edit-btn" data-id="' . htmlspecialchars($setting['id']) . '">Sửa</button>
             <button class="btn btn-danger delete-btn" data-id="' . htmlspecialchars($setting['id']) . '">Xóa</button>
         </td>
-    </tr>';
+        </tr>';
+    }
 }
 
 $pagination = '';

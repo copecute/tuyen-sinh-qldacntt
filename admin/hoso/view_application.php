@@ -1,7 +1,61 @@
 <?php
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/functions.php');
 
-$id = $_POST['id'];
+// Hàm lấy tên thành phố từ ID
+function getCity($id) {
+    $jsonData = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/includes/ajax/DiaGioiHanhChinhVN.json');
+    $data = json_decode($jsonData, true);
+
+    foreach ($data as $city) {
+        if ($city['Id'] == $id) {
+            return $city['Name'];
+        }
+    }
+
+    return 'Không có dữ liệu';
+}
+
+// Hàm lấy tên quận/huyện từ ID
+function getDistrict($cityId, $districtId) {
+    $jsonData = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/includes/ajax/DiaGioiHanhChinhVN.json');
+    $data = json_decode($jsonData, true);
+
+    foreach ($data as $city) {
+        if ($city['Id'] == $cityId) {
+            foreach ($city['Districts'] as $district) {
+                if ($district['Id'] == $districtId) {
+                    return $district['Name'];
+                }
+            }
+        }
+    }
+
+    return 'Không có dữ liệu';
+}
+
+// Hàm lấy tên phường/xã từ ID
+function getWard($cityId, $districtId, $wardId) {
+    $jsonData = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/includes/ajax/DiaGioiHanhChinhVN.json');
+    $data = json_decode($jsonData, true);
+
+    foreach ($data as $city) {
+        if ($city['Id'] == $cityId) {
+            foreach ($city['Districts'] as $district) {
+                if ($district['Id'] == $districtId) {
+                    foreach ($district['Wards'] as $ward) {
+                        if ($ward['Id'] == $wardId) {
+                            return $ward['Name'];
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return 'Không có dữ liệu';
+}
+
+$id = $_POST['id']; // Nhận ID từ AJAX POST request
 $query = $conn->prepare("SELECT * FROM admission_application WHERE id = :id");
 $query->bindParam(':id', $id, PDO::PARAM_INT);
 $query->execute();
@@ -27,6 +81,15 @@ $application = $query->fetch(PDO::FETCH_ASSOC);
 
         <dt class="col-sm-4">Hộ Khẩu Thường Trú:</dt>
         <dd class="col-sm-8"><?php echo htmlspecialchars($application['permanent_residence']); ?></dd>
+        
+        <dt class="col-sm-4">Phường/Xã:</dt>
+        <dd class="col-sm-8"><?php echo htmlspecialchars(getWard($application['city'], $application['district'], $application['ward'])); ?></dd>
+        
+        <dt class="col-sm-4">Quận/Huyện:</dt>
+        <dd class="col-sm-8"><?php echo htmlspecialchars(getDistrict($application['city'], $application['district'])); ?></dd>
+        
+        <dt class="col-sm-4">Tỉnh/Thành phố:</dt>
+        <dd class="col-sm-8"><?php echo htmlspecialchars(getCity($application['city'])); ?></dd>
 
         <dt class="col-sm-4">Số Điện Thoại:</dt>
         <dd class="col-sm-8"><?php echo htmlspecialchars($application['phone_number']); ?></dd>
@@ -56,37 +119,32 @@ $application = $query->fetch(PDO::FETCH_ASSOC);
 
         window.print();
 
-
         document.body.innerHTML = originalContents;
         $('#viewModal').modal('hide'); // Đóng modal
-                    updateApplicationsList();
-
+        updateApplicationsList();
     }
 
     function approveApplication(id) {
-    $.ajax({
-        url: '/admin/hoso/approve_application.php',
-        type: 'POST',
-        data: { id: id },
-        dataType: 'json',
-        success: function (response) {
-            if (response.status === 'success') {
-                toastr.success(response.message);
-                $('#viewModal').modal('hide');
-                updateApplicationsList();
-            } else {
-                toastr.error(response.message);
+        $.ajax({
+            url: '/admin/hoso/approve_application.php',
+            type: 'POST',
+            data: { id: id },
+            dataType: 'json',
+            success: function (response) {
+                if (response.status === 'success') {
+                    toastr.success(response.message);
+                    $('#viewModal').modal('hide');
+                    updateApplicationsList();
+                } else {
+                    toastr.error(response.message);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error('Lỗi khi phê duyệt hồ sơ:', error);
+                toastr.error('Đã xảy ra lỗi khi phê duyệt hồ sơ. Vui lòng thử lại.');
             }
-        },
-        error: function (xhr, status, error) {
-            console.error('Lỗi khi phê duyệt hồ sơ:', error);
-            toastr.error('Đã xảy ra lỗi khi phê duyệt hồ sơ. Vui lòng thử lại.');
-        }
-    });
-}
-
-
-
+        });
+    }
 
     function rejectApplication(id) {
         $.ajax({
@@ -123,22 +181,8 @@ $application = $query->fetch(PDO::FETCH_ASSOC);
             }
         });
     }
-
-    function updateApplicationsList() {
-        $.ajax({
-            url: '/admin/hoso/fetch_applications.php',
-            type: 'GET',
-            success: function (response) {
-                $('#applicationsTable').html(response); // Thay đổi nội dung danh sách hồ sơ
-            },
-            error: function (xhr, status, error) {
-                console.error('Lỗi khi cập nhật danh sách hồ sơ:', error);
-                toastr.error('Đã xảy ra lỗi khi cập nhật danh sách hồ sơ. Vui lòng thử lại.');
-            }
-        });
-    }
-
 </script>
+
 <!-- Toastr CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 

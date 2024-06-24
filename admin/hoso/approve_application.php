@@ -90,7 +90,7 @@ try {
     // Trả về thông báo thành công
     $response = [
         'status' => 'success',
-        'message' => 'Hồ sơ đã được phê duyệt thành công !'
+        'message' => 'Hồ sơ đã được phê duyệt thành công!'
     ];
 } catch (Exception $e) {
     // Quay lại trạng thái trước đó nếu có lỗi
