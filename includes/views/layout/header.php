@@ -57,68 +57,57 @@
                                         <a class="nav-link" href="#">Thông tin</a>
                                         <ul class="megamenu-hub min-mega shape-move">
                                             <li>
-                                                <ul class="">
-                                                    <li class="parent"><a href="#">Courses</a></li>
-                                                    <li><a class="mobile-menu-link" href="course-one.html">Courses</a>
+                                                <ul>
+                                                    <li class="parent"><a href="#">Chuyện của HPC</a></li>
+                                                    <li><a class="mobile-menu-link" href="#">Chuyện giảng viên</a>
                                                     </li>
-                                                    <li><a class="mobile-menu-link" href="course-two.html">Course
-                                                            List</a></li>
-                                                    <li><a class="mobile-menu-link" href="course-three.html">Course
-                                                            Grid</a></li>
-                                                    <li><a class="mobile-menu-link" href="course-four.html">Course List
-                                                            Two</a></li>
-                                                    <li><a class="mobile-menu-link" href="course-five.html">Course Grid
-                                                            Two</a></li>
-                                                    <li><a class="mobile-menu-link" href="course-six.html">Course Grid
-                                                            Three</a></li>
+                                                    <li><a class="mobile-menu-link" href="#">Chuyện sinh viên</a></li>
+                                                    <li><a class="mobile-menu-link" href="#">Chuyện cựu sinh viên</a>
+                                                    </li>
+                                                    <li><a class="mobile-menu-link" href="#">Media</a></li>
                                                 </ul>
-                                                <ul class="">
-                                                    <li class="parent"><a href="#">Courses Details</a></li>
-                                                    <li><a class="mobile-menu-link" href="single-course.html">Course
-                                                            Details</a></li>
-                                                    <li><a class="mobile-menu-link" href="single-course-two.html">Course
-                                                            Details v2</a></li>
-                                                    <li><a class="mobile-menu-link"
-                                                            href="single-course-three.html">Course Details v3</a></li>
-                                                    <li><a class="mobile-menu-link"
-                                                            href="single-course-four.html">Course Details v4</a></li>
-                                                    <li><a class="mobile-menu-link"
-                                                            href="single-course-five.html">Course Details v5</a></li>
-                                                    <li><a class="mobile-menu-link"
-                                                            href="single-course-free.html">Course Details Free</a></li>
+                                                <ul>
+                                                    <li class="parent"><a href="#">Tiện ích</a></li>
+                                                    <li><a class="mobile-menu-link" href="#">VĂN PHÒNG 1 CỬA DÀNH CHO
+                                                            CB-GV</a></li>
+                                                    <li><a class="mobile-menu-link" href="#">VĂN
+                                                            PHÒNG 1 CỬA HPC DÀNH CHO SV2</a></li>
+                                                    <li><a class="mobile-menu-link" href="#">CỔNG
+                                                            THÔNG TIN SINH VIÊN</a></li>
+                                                    <li><a class="mobile-menu-link" href="#">HỆ THỐNG HỌC TRỰC TUYẾN</a>
+                                                    </li>
                                                 </ul>
-                                                <ul class="">
-                                                    <li class="parent"><a href="#">Others</a></li>
-                                                    <li><a href="become-instructor.html">Become an Instructor</a></li>
-                                                    <li><a href="instructor-profile.html">Instructor Profile</a></li>
-                                                    <li><a href="instructor.html">Instructor</a></li>
-                                                    <li><a href="pricing.html">Membership Plan</a></li>
-                                                    <li><a href="log-in.html">Log In</a></li>
-                                                    <li><a href="registration.html">Registration</a></li>
+                                                <ul>
+                                                    <li class="parent"><a href="#">Du học</a></li>
+                                                    <li><a href="#">Du học Hàn Quốc</a></li>
+                                                    <li><a href="#">Du học Nhật bản</a></li>
+                                                    <li><a href="#">Du học CHLB Đức</a></li>
+                                                    <li><a href="#">Du học Đài Loan</a></li>
+                                                    <li><a href="#">Hợp tác quốc tế</a></li>
                                                 </ul>
                                                 <div class="thumbnav-area">
                                                     <!-- single thumbnav -->
-                                                    <a href="create-course.html" class="single-thumbnav">
+                                                    <a href="/tuyensinh.php" class="single-thumbnav">
                                                         <div class="icon">
                                                             <img src="/resources/images/nav/04.png" alt="nav">
                                                         </div>
-                                                        <span>Create Course</span>
+                                                        <span>Đăng ký xét tuyển</span>
                                                     </a>
                                                     <!-- single thumbnav end -->
                                                     <!-- single thumbnav -->
-                                                    <a href="lesson-details.html" class="single-thumbnav mash">
+                                                    <a href="/tracuu.php" class="single-thumbnav mash">
                                                         <div class="icon">
                                                             <img src="/resources/images/nav/05.png" alt="nav">
                                                         </div>
-                                                        <span>Lesson Details</span>
+                                                        <span>Tra cứu hồ sơ</span>
                                                     </a>
                                                     <!-- single thumbnav end -->
                                                     <!-- single thumbnav -->
-                                                    <a href="instructor.html" class="single-thumbnav">
+                                                    <a href="/login.php" class="single-thumbnav">
                                                         <div class="icon">
                                                             <img src="/resources/images/nav/06.png" alt="nav">
                                                         </div>
-                                                        <span>Instructor</span>
+                                                        <span>Đăng nhập sinh viên</span>
                                                     </a>
                                                     <!-- single thumbnav end -->
                                                 </div>
@@ -126,17 +115,24 @@
                                         </ul>
                                     </li>
                                     <li>
-                                        <a class="nav-link" href="/tracuu.php" data-step="2" data-intro="Sau đó hãy tra cứu kết quả xét tuyển nhé!" class="rts-btn btn-primary">Tra cứu</a>
+                                        <a class="nav-link" href="/tracuu.php" id="intro-step2"
+                                            class="rts-btn btn-primary">Tra cứu</a>
                                     </li>
-                                    
+
                                     <li>
                                         <a class="nav-link" href="#" class="rts-btn btn-primary">Tuyển dụng</a>
                                     </li>
-                                    
+
                                     <li>
-                                        <a class="nav-link" onclick="introJs().start();" class="rts-btn btn-primary">Hướng dẫn</a>
+                                        <a class="nav-link" <?php $currentUrl = $_SERVER['REQUEST_URI'];
+                                        if ($currentUrl !== '/' && $currentUrl !== '/index.php') {
+                                            echo 'onclick="introJs().start()"';
+                                        } else {
+                                            echo 'onclick="startIntro()"';
+                                        } ?>
+                                            class="rts-btn btn-primary">Hướng dẫn</a>
                                     </li>
-                                    
+
                                     <li>
                                         <a class="nav-link" href="#" class="rts-btn btn-primary">Giới thiệu</a>
                                     </li>
@@ -160,8 +156,10 @@
                             </div>
 
                             <div class="buttons-area">
-                                <a href="login.php" data-step="3" data-intro="Nếu bạn đã được phê duyệt hãy đăng nhập bằng tài khoản mà nhà trường cung cấp!" class="rts-btn btn-border">Đăng nhập</a>
-                                <a data-step="1" data-intro="Xin chào, trước tiên bạn hãy đăng ký xét tuyển!" href="/tuyensinh.php" class="rts-btn btn-primary" style="animation-name: pulse;animation-delay: 0s;animation-duration: 1s;animation-iteration-count: infinite;">ĐĂNG KÝ XÉT TUYỂN</a>
+                                <a href="login.php" id="intro-step3" class="rts-btn btn-border">Đăng nhập</a>
+                                <a href="/tuyensinh.php" id="intro-step1" class="rts-btn btn-primary"
+                                    style="animation-name: pulse;animation-delay: 0s;animation-duration: 1s;animation-iteration-count: infinite;">ĐĂNG
+                                    KÝ XÉT TUYỂN</a>
                             </div>
                             <div class="menu-btn" id="menu-btn">
                                 <svg width="20" height="16" viewBox="0 0 20 16" fill="none"

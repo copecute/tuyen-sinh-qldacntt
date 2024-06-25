@@ -29,7 +29,7 @@ renderHeader("Đăng nhập");
     <div class="container">
         <div class="row g-0">
             <div class="col-lg-6">
-                <div class="login-page-form-area">
+                <div class="login-page-form-area" data-step="1" data-intro="Nếu bạn được cấp tài khoản hãy nhập thông tin vào các trường sau">
                     <h4 class="title">Đăng nhập</h4>
                     <form id="loginForm">
                         <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
@@ -41,7 +41,7 @@ renderHeader("Đăng nhập");
                             <label for="password">Mật khẩu</label>
                             <input id="password" name="password" type="password" placeholder="Mật khẩu" required>
                         </div>
-                        <button type="submit" class="rts-btn btn-primary">Đăng nhập</button>
+                        <button type="submit" class="rts-btn btn-primary" data-step="2" data-intro="Ấn nút này để đăng nhập">Đăng nhập</button>
 
                         <div class="google-apple-wrapper">
                             <div class="google">

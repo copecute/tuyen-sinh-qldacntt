@@ -31,7 +31,7 @@ require_once ($_SERVER['DOCUMENT_ROOT'] . '/admin/includes/functions.php'); ?>
                 <div class="card-header text-center">
                     <h2>Đăng nhập</h2>
                 </div>
-                <div class="card-body">
+                <div class="card-body" data-step="1" data-intro="Điền thông tin tài khoản quản trị">
                     <form id="loginForm">
                         <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                         <div class="form-group">
@@ -42,7 +42,7 @@ require_once ($_SERVER['DOCUMENT_ROOT'] . '/admin/includes/functions.php'); ?>
                             <label for="password">Mật khẩu:</label>
                             <input type="password" id="password" name="password" class="form-control" required>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+                        <button type="submit" class="btn btn-primary btn-block" data-step="2" data-intro="Và ấn nút này để đăng nhập">Đăng nhập</button>
                     </form>
                     <p class="mt-3 text-center">Chưa có tài khoản? <a href="/admin/register.php">Đăng ký</a></p>
                 </div>

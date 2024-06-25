@@ -3,9 +3,9 @@ require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/functions.php');
 renderHeader("Gửi hồ sơ xét tuyển");
 ?>
 
-<div class="container mt-5 mb-5">
+<div class="container mt-5 mb-5 exrolled-course-wrapper-dashed">
     <h2>Gửi hồ sơ xét tuyển</h2>
-    <form id="applicationForm">
+    <form id="applicationForm" data-step="1" data-intro="Điền thông tin hồ sơ xét tuyển của bạn">
         <div class="form-group">
             <label for="fullname">Họ và Tên:</label>
             <input type="text" class="form-control" id="fullname" name="fullname" required>
@@ -58,7 +58,7 @@ renderHeader("Gửi hồ sơ xét tuyển");
             <label for="major">Ngành học:</label>
             <input type="text" class="form-control" id="major" name="major" required>
         </div>
-        <button type="submit" class="btn btn-primary">Gửi Đơn</button>
+        <button type="submit" class="btn btn-primary" data-step="2" data-intro="Sau khi đã hoàn tất thông tin, ấn vào nút này để gửi hồ sơ">Gửi hồ sơ xét tuyển</button>
     </form>
 </div>
 

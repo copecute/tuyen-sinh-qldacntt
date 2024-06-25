@@ -23,7 +23,7 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/functions.php');
 
-renderHeader("Tuyển sinh");
+renderHeader("Tuyển sinh Trường Cao đẳng Công nghệ Bách khoa Hà Nội");
 ?>
 
 
@@ -100,4 +100,21 @@ renderHeader("Tuyển sinh");
                 alt="shape_image"></div>
     </div>
 </div>
+<script>
+    function startIntro() {
+        introJs().setOptions({
+            steps: [{
+                element: document.querySelector('#intro-step1'),
+                intro: "Xin chào, trước tiên bạn hãy đăng ký xét tuyển!"
+            }, {
+                element: document.querySelector('#intro-step2'),
+                intro: "Sau đó hãy tra cứu kết quả xét tuyển nhé!"
+            }, {
+                element: document.querySelector('#intro-step3'),
+                intro: "Nếu bạn đã được phê duyệt hãy đăng nhập bằng tài khoản mà nhà trường cung cấp!"
+            }]
+        }).start();
+    }
+
+</script>
 <?php renderFooter(); ?>

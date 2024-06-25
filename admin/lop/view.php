@@ -53,7 +53,7 @@ renderHeader("Danh sách sinh viên trong lớp");
                             <td><?php echo htmlspecialchars($student['id']); ?></td>
                             <td><?php echo htmlspecialchars($student['fullname']); ?></td>
                             <td><?php echo htmlspecialchars($student['birthday']); ?></td>
-                            <td><?php echo htmlspecialchars($student['address']); ?></td>
+                            <td><?php echo htmlspecialchars($student['permanent_residence']); ?></td>
                             <td><?php echo htmlspecialchars($student['phone_number']); ?></td>
                             <!-- Các cột khác nếu cần -->
                         </tr>
