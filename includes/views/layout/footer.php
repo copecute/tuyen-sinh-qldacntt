@@ -273,10 +273,12 @@
 <div class="search-input-area">
     <div class="container">
         <div class="search-input-inner">
+        <form action="/tracuu.php" action="post" style="width: 100%;">
             <div class="input-div">
-                <input class="search-input autocomplete" type="text" placeholder="Nhập số điện thoại tra cứu kết quả...">
+                <input class="search-input" type="text" name="sdt" placeholder="Nhập số điện thoại tra cứu kết quả...">
                 <button><i class="far fa-search"></i></button>
             </div>
+        </form>
         </div>
     </div>
     <div id="close" class="search-close-icon"><i class="far fa-times"></i></div>

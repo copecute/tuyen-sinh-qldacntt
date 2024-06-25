@@ -159,7 +159,7 @@ renderHeader("Admin Control Panel");
             
             <div class="col-lg-4 mb-4">
                 <div class="card">
-                    <div class="card-body" data-step="7" data-intro="Bạn cài đặt thời gian tuyển sinh, khoá tại đây">
+                    <div class="card-body" data-step="8" data-intro="Bạn cài đặt thời gian tuyển sinh, khoá tại đây">
                         <h5 class="card-title">Tài khoản giáo viên, admin</h5>
                         <p class="card-text">Quản lý tài khoản quản trị</p>
                         <a href="/admin/register.php" class="btn btn-primary">Thêm</a>
