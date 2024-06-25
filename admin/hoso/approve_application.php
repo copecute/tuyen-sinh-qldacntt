@@ -19,9 +19,10 @@ try {
 
     // Sử dụng JOIN để lấy dữ liệu từ admission_application và admissions_settings
     $fetchApplicationQuery = $conn->prepare("
-        SELECT aa.*, asettings.academic
+        SELECT aa.*, asettings.academic, asettings.max_students_per_class, ng.ten_nghanh
         FROM admission_application aa
         INNER JOIN admissions_settings asettings ON aa.id_admissions_settings = asettings.id
+        INNER JOIN nghanh ng ON aa.major = ng.id
         WHERE aa.id = :id
     ");
     $fetchApplicationQuery->bindParam(':id', $id, PDO::PARAM_INT);
@@ -34,7 +35,7 @@ try {
     }
 
     // Tạo username và password từ thông tin hồ sơ
-    if (!isset($applicationData['academic']) || !isset($applicationData['major'])) {
+    if (!isset($applicationData['academic']) || !isset($applicationData['ten_nghanh'])) {
         throw new Exception('Dữ liệu hồ sơ không đầy đủ.');
     }
 
@@ -55,6 +56,52 @@ try {
         throw new Exception('Không thể chèn dữ liệu vào bảng student_accounts.');
     }
 
+    // Tạo tên lớp dựa trên academic và viết tắt của tên ngành
+    $academic = $applicationData['academic'];
+    $nghanh_ten = $applicationData['ten_nghanh'];
+    $nghanh_viet_tat = implode('', array_map(function ($word) {
+        return strtoupper($word[0]);
+    }, explode(' ', $nghanh_ten)));
+
+    // Kiểm tra xem có lớp hiện tại nào thỏa mãn không
+    $lopQuery = $conn->prepare("
+        SELECT l.id, l.ten_lop, COUNT(sp.id) AS student_count
+        FROM lop l
+        LEFT JOIN student_profiles sp ON l.id = sp.id_lop
+        WHERE l.ten_lop LIKE :ten_lop
+        GROUP BY l.id, l.ten_lop
+        ORDER BY l.ten_lop ASC
+    ");
+    $ten_lop = $academic . $nghanh_viet_tat . '%';
+    $lopQuery->bindParam(':ten_lop', $ten_lop, PDO::PARAM_STR);
+    $lopQuery->execute();
+    $lopData = $lopQuery->fetchAll(PDO::FETCH_ASSOC);
+
+    $lop_id = null;
+    $lop_so_thu_tu = 1;
+
+    foreach ($lopData as $lop) {
+        if ($lop['student_count'] < $applicationData['max_students_per_class']) {
+            $lop_id = $lop['id'];
+            break;
+        }
+        $lop_so_thu_tu++;
+    }
+
+    // Nếu không có lớp nào thỏa mãn, tạo lớp mới
+    if ($lop_id === null) {
+        $new_lop_ten = $academic . $nghanh_viet_tat . $lop_so_thu_tu;
+        $insertLopQuery = $conn->prepare("INSERT INTO lop (ten_lop, nghanh_id) VALUES (:ten_lop, :nghanh_id)");
+        $insertLopQuery->bindParam(':ten_lop', $new_lop_ten, PDO::PARAM_STR);
+        $insertLopQuery->bindParam(':nghanh_id', $applicationData['major'], PDO::PARAM_INT);
+        $insertLopQuery->execute();
+        $lop_id = $conn->lastInsertId();
+
+        if (!$lop_id) {
+            throw new Exception('Không thể tạo lớp mới.');
+        }
+    }
+
     // Cập nhật trạng thái trong bảng admission_application thành '1'
     $updateQuery = $conn->prepare("UPDATE admission_application SET status = '1' WHERE id = :id");
     $updateQuery->bindParam(':id', $id, PDO::PARAM_INT);
@@ -67,8 +114,8 @@ try {
 
     // Chèn dữ liệu từ admission_application vào bảng student_profiles
     $insertProfileQuery = $conn->prepare("
-        INSERT INTO student_profiles (account_id, fullname, birthday, permanent_residence, phone_number, high_school, id_nghanh)
-        VALUES (:account_id, :fullname, :birthday, :permanent_residence, :phone_number, :high_school, :major)
+        INSERT INTO student_profiles (account_id, fullname, birthday, permanent_residence, phone_number, high_school, id_nghanh, id_lop)
+        VALUES (:account_id, :fullname, :birthday, :permanent_residence, :phone_number, :high_school, :major, :id_lop)
     ");
     $insertProfileQuery->bindParam(':account_id', $account_id, PDO::PARAM_INT);
     $insertProfileQuery->bindParam(':fullname', $applicationData['fullname'], PDO::PARAM_STR);
@@ -77,6 +124,7 @@ try {
     $insertProfileQuery->bindParam(':phone_number', $applicationData['phone_number'], PDO::PARAM_STR);
     $insertProfileQuery->bindParam(':high_school', $applicationData['high_school'], PDO::PARAM_STR);
     $insertProfileQuery->bindParam(':major', $applicationData['major'], PDO::PARAM_INT);
+    $insertProfileQuery->bindParam(':id_lop', $lop_id, PDO::PARAM_INT);
     $insertProfileQuery->execute();
 
     // Kiểm tra xem có chèn thành công vào bảng student_profiles không
