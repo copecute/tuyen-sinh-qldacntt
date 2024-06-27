@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $phone_number = $_POST['phone_number'];
     $high_school = $_POST['high_school'];
     $you_are = $_POST['you_are'];
-    $major = $_POST['major'];
+    $major = $_POST['nghanh_id'];
     
     try {
         // Kiểm tra xem số điện thoại đã tồn tại trong database hay chưa

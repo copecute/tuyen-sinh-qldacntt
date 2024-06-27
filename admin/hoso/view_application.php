@@ -2,7 +2,8 @@
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/functions.php');
 
 // Hàm lấy tên thành phố từ ID
-function getCity($id) {
+function getCity($id)
+{
     $jsonData = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/includes/ajax/DiaGioiHanhChinhVN.json');
     $data = json_decode($jsonData, true);
 
@@ -16,7 +17,8 @@ function getCity($id) {
 }
 
 // Hàm lấy tên quận/huyện từ ID
-function getDistrict($cityId, $districtId) {
+function getDistrict($cityId, $districtId)
+{
     $jsonData = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/includes/ajax/DiaGioiHanhChinhVN.json');
     $data = json_decode($jsonData, true);
 
@@ -34,7 +36,8 @@ function getDistrict($cityId, $districtId) {
 }
 
 // Hàm lấy tên phường/xã từ ID
-function getWard($cityId, $districtId, $wardId) {
+function getWard($cityId, $districtId, $wardId)
+{
     $jsonData = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/includes/ajax/DiaGioiHanhChinhVN.json');
     $data = json_decode($jsonData, true);
 
@@ -56,15 +59,37 @@ function getWard($cityId, $districtId, $wardId) {
 }
 
 $id = $_POST['id']; // Nhận ID từ AJAX POST request
-$query = $conn->prepare("SELECT * FROM admission_application WHERE id = :id");
+
+// Cập nhật truy vấn SQL để join với bảng nghanh
+$query = $conn->prepare("
+    SELECT aa.*, n.ten_nghanh
+    FROM admission_application aa
+    JOIN nghanh n ON aa.major = n.id
+    WHERE aa.id = :id
+");
 $query->bindParam(':id', $id, PDO::PARAM_INT);
 $query->execute();
 $application = $query->fetch(PDO::FETCH_ASSOC);
+
+// Dịch ngữ nghĩa các giá trị you_are
+function translateYouAre($youAre)
+{
+    switch ($youAre) {
+        case 1:
+            return 'Học sinh lớp 12';
+        case 2:
+            return 'Người đi làm';
+        case 3:
+            return 'Sinh viên';
+        default:
+            return 'Không xác định';
+    }
+}
 ?>
 
 <div class="modal-body">
     <dl class="row">
-        <dt class="col-sm-4">ID:</dt>
+        <dt class="col-sm-4">Mã hồ sơ:</dt>
         <dd class="col-sm-8"><?php echo $application['id']; ?></dd>
 
         <dt class="col-sm-4">Họ và Tên:</dt>
@@ -74,20 +99,20 @@ $application = $query->fetch(PDO::FETCH_ASSOC);
         <dd class="col-sm-8"><?php echo htmlspecialchars($application['birthday']); ?></dd>
 
         <dt class="col-sm-4">Chuyên Ngành:</dt>
-        <dd class="col-sm-8"><?php echo htmlspecialchars($application['major']); ?></dd>
-
-        <dt class="col-sm-4">Trạng Thái:</dt>
-        <dd class="col-sm-8"><?php echo htmlspecialchars($application['status']); ?></dd>
+        <dd class="col-sm-8"><?php echo htmlspecialchars($application['ten_nghanh']); ?></dd>
 
         <dt class="col-sm-4">Hộ Khẩu Thường Trú:</dt>
         <dd class="col-sm-8"><?php echo htmlspecialchars($application['permanent_residence']); ?></dd>
-        
+
         <dt class="col-sm-4">Phường/Xã:</dt>
-        <dd class="col-sm-8"><?php echo htmlspecialchars(getWard($application['city'], $application['district'], $application['ward'])); ?></dd>
-        
+        <dd class="col-sm-8">
+            <?php echo htmlspecialchars(getWard($application['city'], $application['district'], $application['ward'])); ?>
+        </dd>
+
         <dt class="col-sm-4">Quận/Huyện:</dt>
-        <dd class="col-sm-8"><?php echo htmlspecialchars(getDistrict($application['city'], $application['district'])); ?></dd>
-        
+        <dd class="col-sm-8">
+            <?php echo htmlspecialchars(getDistrict($application['city'], $application['district'])); ?></dd>
+
         <dt class="col-sm-4">Tỉnh/Thành phố:</dt>
         <dd class="col-sm-8"><?php echo htmlspecialchars(getCity($application['city'])); ?></dd>
 
@@ -98,7 +123,7 @@ $application = $query->fetch(PDO::FETCH_ASSOC);
         <dd class="col-sm-8"><?php echo htmlspecialchars($application['high_school']); ?></dd>
 
         <dt class="col-sm-4">Bạn Là:</dt>
-        <dd class="col-sm-8"><?php echo htmlspecialchars($application['you_are']); ?></dd>
+        <dd class="col-sm-8"><?php echo htmlspecialchars(translateYouAre($application['you_are'])); ?></dd>
     </dl>
 </div>
 <div class="modal-footer">

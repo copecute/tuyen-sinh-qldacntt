@@ -54,10 +54,17 @@ renderHeader("Gửi hồ sơ xét tuyển");
                 <option value="3">Sinh viên</option>
             </select>
         </div>
+        
         <div class="form-group">
-            <label for="major">Ngành học:</label>
-            <input type="text" class="form-control" id="major" name="major" required>
+            <label for="khoa_id">Khoa:</label>
+            <select type="text" class="form-control" id="khoa_id" name="khoa_id"></select>
         </div>
+
+        <div class="form-group">
+            <label for="nghanh_id">Ngành học:</label>
+            <select type="text" class="form-control" id="nghanh_id" name="nghanh_id" required ><option value="">Chọn Ngành</option></select>
+        </div>
+
         <button type="submit" class="btn btn-primary" data-step="2" data-intro="Sau khi đã hoàn tất thông tin, ấn vào nút này để gửi hồ sơ">Gửi hồ sơ xét tuyển</button>
     </form>
 </div>
@@ -160,7 +167,47 @@ renderHeader("Gửi hồ sơ xét tuyển");
                 }
             });
         }
-    });
+
+            // Tải danh sách khoa cho modal thêm và sửa lớp
+            function loadKhoas() {
+                $.ajax({
+                    url: "/includes/ajax/fetch_khoas.php",
+                    type: "GET",
+                    success: function (data) {
+                        var khoaOptions = JSON.parse(data);
+                        $('#khoa_id').html(khoaOptions);
+                        $('#edit_khoa_id').html(khoaOptions);
+                    }
+                });
+            }
+
+            loadKhoas(); // Gọi hàm để tải danh sách khoa
+
+            // Khi chọn khoa, tải danh sách ngành tương ứng
+            $('#khoa_id').change(function () {
+                var khoa_id = $(this).val();
+                if (khoa_id) {
+                    loadNganhs(khoa_id, '#nghanh_id');
+                    $('#nghanh_id').prop('disabled', false);
+                } else {
+                    $('#nghanh_id').html('<option value="">Chọn Ngành</option>').prop('disabled', true);
+                }
+            });
+
+            // Hàm AJAX để tải danh sách ngành theo khoa
+            function loadNganhs(khoa_id, selectElement) {
+                $.ajax({
+                    url: "/includes/ajax/fetch_nghanhs.php",
+                    type: "GET",
+                    data: { khoa_id: khoa_id },
+                    success: function (data) {
+                        var nghanhOptions = JSON.parse(data);
+                        $(selectElement).html(nghanhOptions);
+                    }
+                });
+            }
+        });            
+
 </script>
 
 <?php renderFooter(); ?>
