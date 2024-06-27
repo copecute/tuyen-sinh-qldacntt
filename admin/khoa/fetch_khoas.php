@@ -108,7 +108,7 @@ $total_pages = ceil($total_rows / $records_per_page);
     // Xem chi tiết Ngành khi click vào nút Xem Ngành
     $(document).on('click', '.view-nganh', function () {
         var khoa_id = $(this).data('khoa_id');
-        window.location.href = '/admin/nganh/index.php?khoa=' + khoa_id;
+        window.location.href = '/admin/nghanh/index.php?khoa=' + khoa_id;
     });
 
     // Mở modal sửa khoa khi click vào nút Sửa

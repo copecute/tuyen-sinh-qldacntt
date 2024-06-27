@@ -79,7 +79,6 @@ $(document).ready(function() {
 
     function showResult(data) {
         var html = `<div>
-                        <h3>Hồ sơ tuyển sinh</h3>
                         <p><strong>Họ và Tên:</strong> ${data.fullname}</p>
                         <p><strong>Năm sinh:</strong> ${data.birthday}</p>
                         <p><strong>Số điện thoại:</strong> ${data.phone_number}</p>
